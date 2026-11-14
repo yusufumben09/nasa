@@ -1,0 +1,36 @@
+{
+ "meta": {
+  "generated": "2026-11-14T20:50+03:00",
+  "sources": [
+   "robbins_v1"
+  ],
+  "units": {},
+  "missing_removed": 0,
+  "notes": "No downloadable small-crater (<1 km) or rock-abundance grid found for Jezero within the time limit."
+ },
+ "status": "not_found",
+ "type": "FeatureCollection",
+ "features": [],
+ "tried": [
+  {
+   "source": "Lagain et al. automatic crater database <1 km (~93 M craters, CTX)",
+   "result": "available as a JMARS layer; no direct download found"
+  },
+  {
+   "source": "Servis et al. 2020 (EGU2020-6269) Jezero HiRISE crater detection, >27,298 craters >3 m",
+   "result": "abstract only; no data release found"
+  },
+  {
+   "source": "Golombek et al. 2017 rock abundance (CFA) maps",
+   "result": "figures in papers; no grid release found"
+  },
+  {
+   "source": "Robbins & Hynek 2012 (USGS OGC API)",
+   "result": "only craters >=1 km; already available separately"
+  },
+  {
+   "source": "Francis et al. sub-km survey (Zenodo 3946647)",
+   "result": "MC-11 East quadrangle, does not cover Jezero"
+  }
+ ]
+}

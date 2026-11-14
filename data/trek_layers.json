@@ -1,0 +1,105 @@
+{
+ "meta": {
+  "generated": "2026-11-14T20:50+03:00",
+  "sources": [
+   "trek_wmts"
+  ],
+  "units": {
+   "bbox": "degrees east/north [lon_min,lat_min,lon_max,lat_max]"
+  },
+  "missing_removed": 0,
+  "notes": "Each layer's WMTSCapabilities.xml read and one tile fetched in the browser on 14 Nov 2026 (HTTP 200). EQ tiling: tile size d=180/2^z deg; row=floor((90-lat)/d); col=floor((lon+180)/d). Credit: NASA/JPL-Caltech Mars Trek; imagery NASA/JPL/UArizona (HiRISE), NASA/JPL/MSSS (CTX)."
+ },
+ "layers": [
+  {
+   "id": "JEZ_hirise_soc_006_orthoMosaic_25cm_Eqc_latTs0_lon0_first_dd",
+   "title": "HiRISE 25 cm orthomosaic (Mars 2020 TRN)",
+   "zoom_min": 0,
+   "zoom_max": 17,
+   "bbox": [
+    77.2229331,
+    18.3067994,
+    77.583964,
+    18.669315
+   ],
+   "format": "png",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/JEZ_hirise_soc_006_orthoMosaic_25cm_Eqc_latTs0_lon0_first_dd/1.0.0//default/default028mm/{z}/{row}/{col}.png",
+   "tile_test": {
+    "tile": "10/407/1464",
+    "status": 200
+   }
+  },
+  {
+   "id": "NES_JEZ_MID_Visible_Mosaic_HiRISE_CTX_HRSC_GCS_MARS_07-10-2018",
+   "title": "HiRISE+CTX+HRSC visible mosaic, NE Syrtis/Jezero/Midway",
+   "zoom_min": 0,
+   "zoom_max": 17,
+   "bbox": [
+    76.7912789,
+    17.5791654,
+    77.7314417,
+    18.6926322
+   ],
+   "format": "png",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/NES_JEZ_MID_Visible_Mosaic_HiRISE_CTX_HRSC_GCS_MARS_07-10-2018/1.0.0//default/default028mm/{z}/{row}/{col}.png",
+   "tile_test": {
+    "tile": "10/407/1464",
+    "status": 200
+   }
+  },
+  {
+   "id": "JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0",
+   "title": "CTX 6 m orthomosaic (Mars 2020)",
+   "zoom_min": 0,
+   "zoom_max": 13,
+   "bbox": [
+    77.1604655,
+    18.2110274,
+    77.6991776,
+    18.7211945
+   ],
+   "format": "png",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0/1.0.0//default/default028mm/{z}/{row}/{col}.png",
+   "tile_test": {
+    "tile": "10/407/1464",
+    "status": 200
+   }
+  },
+  {
+   "id": "Jezero_CTX_BlockAdj_dd",
+   "title": "CTX block-adjusted mosaic, wider Jezero region",
+   "zoom_min": 0,
+   "zoom_max": 12,
+   "bbox": [
+    75.1537692,
+    15.9058484,
+    78.8717121,
+    19.4453003
+   ],
+   "format": "png",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/Jezero_CTX_BlockAdj_dd/1.0.0//default/default028mm/{z}/{row}/{col}.png",
+   "tile_test": {
+    "tile": "10/407/1464",
+    "status": 200
+   }
+  },
+  {
+   "id": "Mars_MGS_MOLA_ClrShade_merge_global_463m",
+   "title": "MOLA colour shaded relief, global 463 m",
+   "zoom_min": 0,
+   "zoom_max": 7,
+   "bbox": [
+    -180.0,
+    -89.9991635,
+    179.9983271,
+    90.0
+   ],
+   "format": "jpg",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0//default/default028mm/{z}/{row}/{col}.jpg",
+   "tile_test": {
+    "tile": "7/50/183",
+    "status": 200
+   }
+  }
+ ]
+}

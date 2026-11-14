@@ -548,8 +548,21 @@ function renderStats(){
     ['Mesafe',fm(env.distance_m)+' m'],['Yüzey mesafesi',fm(env.surface_distance_m)+' m'],
     ['En dik eğim',f1(env.max_slope_deg)+'°'],['Ort. eğim',f1(env.mean_slope_deg)+'°'],
     ['Tırmanış',fm(env.ascent_m)+' m'],['İniş',fm(env.descent_m)+' m'],
-    ['HiRISE kapsamı',f1(env.hirise_cell_share_pct||0)+'%'],['Dijkstra hareketi',safe.optimality.gridMoves]
+    ['HiRISE kapsamı',f1(env.hirise_cell_share_pct||0)+'%'],['Dijkstra hareketi',safe.optimality.gridMoves],
+    ...weatherRows(env.weather)
   ].map(([label,value])=>`<div>${label}</div><div class="v">${value}</div>`).join('');
+}
+function weatherRows(w){
+  // NASA olcum verisi (MEDA, Mastcam-Z, Mars24): secilen yerel saatin ortanca degerleri, tahmin degil
+  if(!w||!w.available) return [['Hava','veri yok']];
+  const v=(x,u)=>Number.isFinite(x)?f1(x)+u:'—';
+  const rows=[[`Hava (${String(w.hour_ltst).padStart(2,'0')}:00 yerel)`,w.in_eva_window?'EVA penceresinde':'EVA penceresi dışında'],
+    ['Hava sıcaklığı',v(w.air_temp_c,' °C')],['Zemin sıcaklığı',v(w.ground_temp_c,' °C')],
+    ['Basınç',v(w.pressure_pa,' Pa')],['Rüzgâr (ortanca)',w.wind_m_s?v(w.wind_m_s.median,' m/s'):'—'],
+    ['Toz (optik derinlik)',w.dust_optical_depth?w.dust_optical_depth.median.toLocaleString('tr-TR',{maximumFractionDigits:2}):'—']];
+  if(w.sun) rows.push(['Güneş yüksekliği',Number.isFinite(w.sun.elevation_deg)?f1(w.sun.elevation_deg)+'°':(Number.isFinite(w.sun.min_deg)?f1(w.sun.min_deg)+'–'+f1(w.sun.max_deg)+'°':'—')]);
+  if(Number.isFinite(w.radiation_msv_per_day)) rows.push(['Radyasyon (Gale)',w.radiation_msv_per_day.toLocaleString('tr-TR')+' mSv/gün']);
+  return rows;
 }
 function renderReasons(){
   const list=$('reasons');
