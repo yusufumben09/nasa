@@ -1,0 +1,1495 @@
+{
+ "temperature": {
+  "source_id": "meda_tirs",
+  "instrument": "Perseverance MEDA TIRS (calibrated, level CAL_TIRS)",
+  "fields": "GROUND_TEMP, AIR_TEMP (K)",
+  "measured_at": [
+   {
+    "sol": 15,
+    "lat": 18.44463,
+    "lon": 77.45089,
+    "waypoint_sol": 13,
+    "tirs_file_version": "P04"
+   },
+   {
+    "sol": 60,
+    "lat": 18.44475,
+    "lon": 77.45214,
+    "waypoint_sol": 52,
+    "tirs_file_version": "P04"
+   },
+   {
+    "sol": 105,
+    "lat": 18.44201,
+    "lon": 77.4507,
+    "waypoint_sol": 105,
+    "tirs_file_version": "P03"
+   },
+   {
+    "sol": 150,
+    "lat": 18.42998,
+    "lon": 77.45215,
+    "waypoint_sol": 137,
+    "tirs_file_version": "P03"
+   },
+   {
+    "sol": 200,
+    "lat": 18.43255,
+    "lon": 77.44069,
+    "waypoint_sol": 200,
+    "tirs_file_version": "P03"
+   },
+   {
+    "sol": 246,
+    "lat": 18.43396,
+    "lon": 77.44301,
+    "waypoint_sol": 239,
+    "tirs_file_version": "P03"
+   },
+   {
+    "sol": 290,
+    "lat": 18.43266,
+    "lon": 77.44137,
+    "waypoint_sol": 286,
+    "tirs_file_version": "P03"
+   },
+   {
+    "sol": 335,
+    "lat": 18.43261,
+    "lon": 77.44131,
+    "waypoint_sol": 335,
+    "tirs_file_version": "P02"
+   },
+   {
+    "sol": 380,
+    "lat": 18.44623,
+    "lon": 77.45147,
+    "waypoint_sol": 379,
+    "tirs_file_version": "P02"
+   },
+   {
+    "sol": 425,
+    "lat": 18.45057,
+    "lon": 77.40142,
+    "waypoint_sol": 422,
+    "tirs_file_version": "P01"
+   },
+   {
+    "sol": 470,
+    "lat": 18.45879,
+    "lon": 77.40601,
+    "waypoint_sol": 464,
+    "tirs_file_version": "P01"
+   },
+   {
+    "sol": 515,
+    "lat": 18.45865,
+    "lon": 77.40592,
+    "waypoint_sol": 502,
+    "tirs_file_version": "P01"
+   },
+   {
+    "sol": 560,
+    "lat": 18.45074,
+    "lon": 77.40144,
+    "waypoint_sol": 557,
+    "tirs_file_version": "P02"
+   },
+   {
+    "sol": 605,
+    "lat": 18.45133,
+    "lon": 77.40126,
+    "waypoint_sol": 593,
+    "tirs_file_version": "P02"
+   },
+   {
+    "sol": 650,
+    "lat": 18.45252,
+    "lon": 77.4072,
+    "waypoint_sol": 648,
+    "tirs_file_version": "P02"
+   },
+   {
+    "sol": 695,
+    "lat": 18.45418,
+    "lon": 77.40845,
+    "waypoint_sol": 693,
+    "tirs_file_version": "P01"
+   }
+  ],
+  "by_ltst_hour": [
+   {
+    "hour": 0,
+    "ground_temp_k": {
+     "median": 198.9,
+     "p10": 190.9,
+     "p90": 209.4,
+     "min": 188.7,
+     "max": 210.5,
+     "n": 21911,
+     "median_c": -74.2
+    },
+    "air_temp_k": {
+     "median": 204.6,
+     "p10": 200.9,
+     "p90": 208.8,
+     "min": 194.3,
+     "max": 214.5,
+     "n": 21911,
+     "median_c": -68.5
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 1,
+    "ground_temp_k": {
+     "median": 195.2,
+     "p10": 188.1,
+     "p90": 207.4,
+     "min": 187.4,
+     "max": 209.2,
+     "n": 21175,
+     "median_c": -77.9
+    },
+    "air_temp_k": {
+     "median": 203.1,
+     "p10": 200.4,
+     "p90": 210,
+     "min": 193.8,
+     "max": 214,
+     "n": 21175,
+     "median_c": -70.0
+    },
+    "n_sols": 11
+   },
+   {
+    "hour": 2,
+    "ground_temp_k": {
+     "median": 195.6,
+     "p10": 187.8,
+     "p90": 206.8,
+     "min": 184.9,
+     "max": 207.8,
+     "n": 25459,
+     "median_c": -77.5
+    },
+    "air_temp_k": {
+     "median": 200.5,
+     "p10": 197.9,
+     "p90": 203.6,
+     "min": 190.8,
+     "max": 209.6,
+     "n": 25459,
+     "median_c": -72.6
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 3,
+    "ground_temp_k": {
+     "median": 194,
+     "p10": 184.4,
+     "p90": 204.3,
+     "min": 183.6,
+     "max": 206.7,
+     "n": 22950,
+     "median_c": -79.1
+    },
+    "air_temp_k": {
+     "median": 198.4,
+     "p10": 194.7,
+     "p90": 203.2,
+     "min": 189.3,
+     "max": 208.6,
+     "n": 22950,
+     "median_c": -74.7
+    },
+    "n_sols": 13
+   },
+   {
+    "hour": 4,
+    "ground_temp_k": {
+     "median": 194.4,
+     "p10": 184.1,
+     "p90": 204.3,
+     "min": 181.7,
+     "max": 205.4,
+     "n": 29653,
+     "median_c": -78.7
+    },
+    "air_temp_k": {
+     "median": 197.3,
+     "p10": 192.3,
+     "p90": 201.3,
+     "min": 186.4,
+     "max": 204.5,
+     "n": 29653,
+     "median_c": -75.8
+    },
+    "n_sols": 13
+   },
+   {
+    "hour": 5,
+    "ground_temp_k": {
+     "median": 191.8,
+     "p10": 182.1,
+     "p90": 203,
+     "min": 181.3,
+     "max": 204.4,
+     "n": 28661,
+     "median_c": -81.3
+    },
+    "air_temp_k": {
+     "median": 196.5,
+     "p10": 192.2,
+     "p90": 202.3,
+     "min": 183.9,
+     "max": 207.3,
+     "n": 28661,
+     "median_c": -76.6
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 6,
+    "ground_temp_k": {
+     "median": 196.7,
+     "p10": 186,
+     "p90": 206.1,
+     "min": 182.2,
+     "max": 210.9,
+     "n": 27125,
+     "median_c": -76.4
+    },
+    "air_temp_k": {
+     "median": 197.9,
+     "p10": 191.8,
+     "p90": 202.1,
+     "min": 185.9,
+     "max": 207.4,
+     "n": 27125,
+     "median_c": -75.2
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 7,
+    "ground_temp_k": {
+     "median": 207.9,
+     "p10": 195.9,
+     "p90": 219.6,
+     "min": 190.1,
+     "max": 227.8,
+     "n": 20150,
+     "median_c": -65.2
+    },
+    "air_temp_k": {
+     "median": 204.7,
+     "p10": 197.4,
+     "p90": 216.4,
+     "min": 188.8,
+     "max": 228.3,
+     "n": 20150,
+     "median_c": -68.4
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 8,
+    "ground_temp_k": {
+     "median": 228.2,
+     "p10": 214.3,
+     "p90": 240.8,
+     "min": 209.4,
+     "max": 252.1,
+     "n": 24940,
+     "median_c": -44.9
+    },
+    "air_temp_k": {
+     "median": 215.4,
+     "p10": 202.7,
+     "p90": 246.3,
+     "min": 193.7,
+     "max": 263.2,
+     "n": 24940,
+     "median_c": -57.7
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 9,
+    "ground_temp_k": {
+     "median": 247.2,
+     "p10": 234.8,
+     "p90": 258.8,
+     "min": 229.1,
+     "max": 267.7,
+     "n": 21785,
+     "median_c": -25.9
+    },
+    "air_temp_k": {
+     "median": 219.2,
+     "p10": 212.4,
+     "p90": 254.6,
+     "min": 197.5,
+     "max": 267.7,
+     "n": 21785,
+     "median_c": -53.9
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 10,
+    "ground_temp_k": {
+     "median": 261.7,
+     "p10": 249.1,
+     "p90": 275,
+     "min": 244.3,
+     "max": 279.3,
+     "n": 23679,
+     "median_c": -11.4
+    },
+    "air_temp_k": {
+     "median": 226.9,
+     "p10": 218.9,
+     "p90": 237.7,
+     "min": 201.4,
+     "max": 246.5,
+     "n": 23679,
+     "median_c": -46.2
+    },
+    "n_sols": 12
+   },
+   {
+    "hour": 11,
+    "ground_temp_k": {
+     "median": 271.6,
+     "p10": 264.5,
+     "p90": 280.3,
+     "min": 251.2,
+     "max": 285.5,
+     "n": 29602,
+     "median_c": -1.5
+    },
+    "air_temp_k": {
+     "median": 229,
+     "p10": 222.8,
+     "p90": 241.7,
+     "min": 207.1,
+     "max": 251.5,
+     "n": 29602,
+     "median_c": -44.1
+    },
+    "n_sols": 14
+   },
+   {
+    "hour": 12,
+    "ground_temp_k": {
+     "median": 276.1,
+     "p10": 263.8,
+     "p90": 286.3,
+     "min": 257.4,
+     "max": 292.4,
+     "n": 35002,
+     "median_c": 3.0
+    },
+    "air_temp_k": {
+     "median": 232.7,
+     "p10": 224.4,
+     "p90": 244.3,
+     "min": 215.6,
+     "max": 255.4,
+     "n": 35002,
+     "median_c": -40.4
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 13,
+    "ground_temp_k": {
+     "median": 277.6,
+     "p10": 265.1,
+     "p90": 285.4,
+     "min": 259.9,
+     "max": 292.4,
+     "n": 35561,
+     "median_c": 4.5
+    },
+    "air_temp_k": {
+     "median": 238.3,
+     "p10": 231.3,
+     "p90": 251.2,
+     "min": 221.7,
+     "max": 259.7,
+     "n": 35561,
+     "median_c": -34.8
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 14,
+    "ground_temp_k": {
+     "median": 271.1,
+     "p10": 258.4,
+     "p90": 280.8,
+     "min": 253.1,
+     "max": 285.6,
+     "n": 33067,
+     "median_c": -2.0
+    },
+    "air_temp_k": {
+     "median": 240.6,
+     "p10": 231.4,
+     "p90": 253.8,
+     "min": 225.6,
+     "max": 260.3,
+     "n": 33067,
+     "median_c": -32.5
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 15,
+    "ground_temp_k": {
+     "median": 262.5,
+     "p10": 253.2,
+     "p90": 270.5,
+     "min": 244.3,
+     "max": 279.6,
+     "n": 31214,
+     "median_c": -10.6
+    },
+    "air_temp_k": {
+     "median": 250,
+     "p10": 238.2,
+     "p90": 275,
+     "min": 225.1,
+     "max": 286.9,
+     "n": 31214,
+     "median_c": -23.1
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 16,
+    "ground_temp_k": {
+     "median": 248.6,
+     "p10": 234.4,
+     "p90": 256.9,
+     "min": 225.5,
+     "max": 261.7,
+     "n": 32882,
+     "median_c": -24.5
+    },
+    "air_temp_k": {
+     "median": 240.7,
+     "p10": 229.3,
+     "p90": 255.6,
+     "min": 224.1,
+     "max": 284.7,
+     "n": 32882,
+     "median_c": -32.4
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 17,
+    "ground_temp_k": {
+     "median": 230.9,
+     "p10": 222.9,
+     "p90": 243.1,
+     "min": 216.3,
+     "max": 252.3,
+     "n": 25359,
+     "median_c": -42.2
+    },
+    "air_temp_k": {
+     "median": 235.8,
+     "p10": 225.6,
+     "p90": 244.4,
+     "min": 215.9,
+     "max": 251.4,
+     "n": 25359,
+     "median_c": -37.3
+    },
+    "n_sols": 14
+   },
+   {
+    "hour": 18,
+    "ground_temp_k": {
+     "median": 220.7,
+     "p10": 212.2,
+     "p90": 226.7,
+     "min": 209.7,
+     "max": 231.2,
+     "n": 30718,
+     "median_c": -52.4
+    },
+    "air_temp_k": {
+     "median": 226.7,
+     "p10": 217.6,
+     "p90": 233.1,
+     "min": 209.7,
+     "max": 238.6,
+     "n": 30718,
+     "median_c": -46.4
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 19,
+    "ground_temp_k": {
+     "median": 210.3,
+     "p10": 205.5,
+     "p90": 219.7,
+     "min": 203.4,
+     "max": 224.6,
+     "n": 28463,
+     "median_c": -62.8
+    },
+    "air_temp_k": {
+     "median": 220.3,
+     "p10": 215,
+     "p90": 227.9,
+     "min": 205.5,
+     "max": 232,
+     "n": 28463,
+     "median_c": -52.8
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 20,
+    "ground_temp_k": {
+     "median": 208.5,
+     "p10": 202.8,
+     "p90": 215.7,
+     "min": 199.4,
+     "max": 220,
+     "n": 31388,
+     "median_c": -64.6
+    },
+    "air_temp_k": {
+     "median": 216.6,
+     "p10": 210.6,
+     "p90": 222,
+     "min": 202.5,
+     "max": 225.2,
+     "n": 31388,
+     "median_c": -56.5
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 21,
+    "ground_temp_k": {
+     "median": 203.3,
+     "p10": 197.5,
+     "p90": 211.2,
+     "min": 196,
+     "max": 217.3,
+     "n": 27987,
+     "median_c": -69.8
+    },
+    "air_temp_k": {
+     "median": 213,
+     "p10": 208.8,
+     "p90": 217.7,
+     "min": 201.2,
+     "max": 223.9,
+     "n": 27987,
+     "median_c": -60.1
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 22,
+    "ground_temp_k": {
+     "median": 203.8,
+     "p10": 196.6,
+     "p90": 212.8,
+     "min": 193.2,
+     "max": 214.6,
+     "n": 27794,
+     "median_c": -69.3
+    },
+    "air_temp_k": {
+     "median": 209.7,
+     "p10": 204.5,
+     "p90": 213.9,
+     "min": 197.8,
+     "max": 217.3,
+     "n": 27794,
+     "median_c": -63.4
+    },
+    "n_sols": 15
+   },
+   {
+    "hour": 23,
+    "ground_temp_k": {
+     "median": 200.8,
+     "p10": 192.1,
+     "p90": 206.1,
+     "min": 191.2,
+     "max": 212.8,
+     "n": 24210,
+     "median_c": -72.3
+    },
+    "air_temp_k": {
+     "median": 207.5,
+     "p10": 204.5,
+     "p90": 212,
+     "min": 195.7,
+     "max": 215.7,
+     "n": 24210,
+     "median_c": -65.6
+    },
+    "n_sols": 15
+   }
+  ],
+  "method": "All rows of CAL_TIRS for the listed sols, binned by local true solar time hour; NaN/empty rows dropped; MEDA quality flag columns NOT applied; percentiles over all samples (n = samples, n_sols = sols with data in that hour).",
+  "note": "Point measurements by Perseverance on the Jezero crater floor and delta front (sols 15-695, about one Mars year); not a map. AIR_TEMP from TIRS is an atmospheric brightness-based estimate; use medians, extremes may include contaminated samples."
+ },
+ "recommended_eva_window_ltst": {
+  "start": "11:00",
+  "end": "15:00",
+  "hours": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "basis": "hours whose median ground temperature is within 7 K of the warmest hour (277.6 K)"
+ },
+ "radiation": {
+  "source_id": "msl_rad",
+  "dose_rate_mgy_per_day": 0.21,
+  "dose_rate_uncertainty_mgy_per_day": 0.04,
+  "measured_at": "Gale crater (Curiosity RAD), Aug 2012-Jun 2013",
+  "citation": "Hassler et al. 2014, Science 343, doi:10.1126/science.1244797",
+  "note": "Approximate for Jezero; no radiation measurement there. Dose is anticorrelated with surface pressure.",
+  "dose_equivalent_note": "Verified: Hassler et al. 2014 give 0.64 +/- 0.12 mSv/sol (supersedes earlier 0.64-0.67 range).",
+  "dose_equivalent_msv_per_day": 0.64,
+  "dose_equivalent_uncertainty_msv_per_day": 0.12,
+  "jezero_measurement": "not_found: Perseverance has no radiation instrument; no Jezero surface dose measurement found (searched 14 Nov 2026). Gale value retained."
+ },
+ "pressure": {
+  "source_id": "meda_ps",
+  "instrument": "Perseverance MEDA PS (derived, DER_PS)",
+  "field": "PRESSURE (Pa)",
+  "sols": [
+   15,
+   60,
+   105,
+   150,
+   200,
+   246,
+   290,
+   335,
+   380,
+   425,
+   470,
+   515,
+   560,
+   605,
+   650,
+   695
+  ],
+  "note": "Pooled over 16 sols spanning about one Mars year; spread is mostly seasonal (CO2 cycle), not daily.",
+  "by_hour_ltst": {
+   "0": {
+    "p10": 641.2,
+    "median": 734.3,
+    "p90": 754.4
+   },
+   "1": {
+    "p10": 637.1,
+    "median": 731.1,
+    "p90": 759.5
+   },
+   "2": {
+    "p10": 634.9,
+    "median": 724.1,
+    "p90": 752.9
+   },
+   "3": {
+    "p10": 631.9,
+    "median": 730.1,
+    "p90": 757.6
+   },
+   "4": {
+    "p10": 633.1,
+    "median": 717.3,
+    "p90": 752.3
+   },
+   "5": {
+    "p10": 634.9,
+    "median": 717.4,
+    "p90": 764.4
+   },
+   "6": {
+    "p10": 637.1,
+    "median": 726.3,
+    "p90": 759.9
+   },
+   "7": {
+    "p10": 646.0,
+    "median": 746.1,
+    "p90": 771.1
+   },
+   "8": {
+    "p10": 649.6,
+    "median": 724.8,
+    "p90": 760.2
+   },
+   "9": {
+    "p10": 637.4,
+    "median": 722.6,
+    "p90": 762.5
+   },
+   "10": {
+    "p10": 631.7,
+    "median": 694.3,
+    "p90": 748.8
+   },
+   "11": {
+    "p10": 629.9,
+    "median": 719.1,
+    "p90": 754.3
+   },
+   "12": {
+    "p10": 631.3,
+    "median": 739.3,
+    "p90": 754.8
+   },
+   "13": {
+    "p10": 625.7,
+    "median": 710.3,
+    "p90": 755.2
+   },
+   "14": {
+    "p10": 625.4,
+    "median": 709.6,
+    "p90": 770.2
+   },
+   "15": {
+    "p10": 620.4,
+    "median": 706.5,
+    "p90": 759.4
+   },
+   "16": {
+    "p10": 617.5,
+    "median": 706.2,
+    "p90": 764.2
+   },
+   "17": {
+    "p10": 651.4,
+    "median": 706.1,
+    "p90": 760.8
+   },
+   "18": {
+    "p10": 619.3,
+    "median": 707.4,
+    "p90": 786.3
+   },
+   "19": {
+    "p10": 626.6,
+    "median": 727.8,
+    "p90": 765.5
+   },
+   "20": {
+    "p10": 640.6,
+    "median": 734.2,
+    "p90": 805.1
+   },
+   "21": {
+    "p10": 633.4,
+    "median": 723.0,
+    "p90": 763.6
+   },
+   "22": {
+    "p10": 633.1,
+    "median": 731.2,
+    "p90": 810.1
+   },
+   "23": {
+    "p10": 627.6,
+    "median": 740.2,
+    "p90": 761.0
+   }
+  }
+ },
+ "wind": {
+  "source_id": "meda_ws",
+  "instrument": "Perseverance MEDA WS (derived, DER_WS)",
+  "field": "HORIZONTAL_WIND_SPEED (m/s)",
+  "sols": [
+   60,
+   105,
+   150,
+   200,
+   246,
+   290
+  ],
+  "quality": "Only sols before 313 used: WS was damaged by a dust devil on sol 313; highest-confidence wind data are sols 1-313 (Vicente-Retortillo, EPSC-DPS2025-1461). Fill value 999999999 removed (8,999 of 306,356 samples).",
+  "by_hour_ltst": {
+   "0": {
+    "n": 3012,
+    "p10": 0.66,
+    "median": 2.53,
+    "p90": 3.84,
+    "p99": 5.0
+   },
+   "1": {
+    "n": 8627,
+    "p10": 1.01,
+    "median": 3.4,
+    "p90": 5.46,
+    "p99": 6.35
+   },
+   "2": {
+    "n": 10380,
+    "p10": 0.48,
+    "median": 1.31,
+    "p90": 2.27,
+    "p99": 2.79
+   },
+   "3": {
+    "n": 6811,
+    "p10": 0.34,
+    "median": 0.91,
+    "p90": 1.36,
+    "p99": 2.1
+   },
+   "4": {
+    "n": 6088,
+    "p10": 0.68,
+    "median": 1.16,
+    "p90": 1.54,
+    "p99": 2.22
+   },
+   "5": {
+    "n": 5084,
+    "p10": 0.45,
+    "median": 1.42,
+    "p90": 2.02,
+    "p99": 2.6
+   },
+   "6": {
+    "n": 4431,
+    "p10": 0.39,
+    "median": 1.31,
+    "p90": 1.86,
+    "p99": 2.41
+   },
+   "7": {
+    "n": 9924,
+    "p10": 0.89,
+    "median": 2.0,
+    "p90": 3.0,
+    "p99": 3.79
+   },
+   "8": {
+    "n": 13583,
+    "p10": 1.09,
+    "median": 2.6,
+    "p90": 4.05,
+    "p99": 5.28
+   },
+   "9": {
+    "n": 10631,
+    "p10": 0.66,
+    "median": 2.44,
+    "p90": 4.08,
+    "p99": 5.61
+   },
+   "10": {
+    "n": 10853,
+    "p10": 1.67,
+    "median": 3.83,
+    "p90": 6.99,
+    "p99": 8.97
+   },
+   "11": {
+    "n": 19110,
+    "p10": 1.97,
+    "median": 3.95,
+    "p90": 7.47,
+    "p99": 10.29
+   },
+   "12": {
+    "n": 26553,
+    "p10": 2.54,
+    "median": 5.02,
+    "p90": 8.39,
+    "p99": 12.36
+   },
+   "13": {
+    "n": 24961,
+    "p10": 1.9,
+    "median": 4.05,
+    "p90": 7.58,
+    "p99": 10.99
+   },
+   "14": {
+    "n": 16714,
+    "p10": 2.11,
+    "median": 5.03,
+    "p90": 8.61,
+    "p99": 11.92
+   },
+   "15": {
+    "n": 10886,
+    "p10": 3.72,
+    "median": 5.7,
+    "p90": 8.43,
+    "p99": 10.71
+   },
+   "16": {
+    "n": 20166,
+    "p10": 3.95,
+    "median": 6.37,
+    "p90": 9.46,
+    "p99": 13.55
+   },
+   "17": {
+    "n": 9521,
+    "p10": 3.53,
+    "median": 7.25,
+    "p90": 9.97,
+    "p99": 12.2
+   },
+   "18": {
+    "n": 15825,
+    "p10": 1.26,
+    "median": 2.52,
+    "p90": 4.42,
+    "p99": 6.37
+   },
+   "19": {
+    "n": 12045,
+    "p10": 0.74,
+    "median": 1.81,
+    "p90": 3.06,
+    "p99": 4.61
+   },
+   "20": {
+    "n": 18877,
+    "p10": 1.15,
+    "median": 2.35,
+    "p90": 4.42,
+    "p99": 7.15
+   },
+   "21": {
+    "n": 7160,
+    "p10": 1.13,
+    "median": 2.19,
+    "p90": 3.62,
+    "p99": 4.48
+   },
+   "22": {
+    "n": 12034,
+    "p10": 1.05,
+    "median": 2.42,
+    "p90": 3.44,
+    "p99": 4.89
+   },
+   "23": {
+    "n": 14081,
+    "p10": 2.26,
+    "median": 3.72,
+    "p90": 5.71,
+    "p99": 6.89
+   }
+  },
+  "summary": "Calm nights (median 1-3.5 m/s); windiest 12:00-17:00 LTST (median 4-7 m/s, p99 up to 13.6 m/s)."
+ },
+ "meta": {
+  "generated": "2026-11-14T21:00+03:00",
+  "sources": [
+   "meda_tirs",
+   "meda_ps",
+   "meda_ws",
+   "meda_rhs",
+   "meda_rds",
+   "m20_mastcamz_tau",
+   "msl_rad"
+  ],
+  "units": {
+   "temperature": "K",
+   "pressure": "Pa",
+   "wind": "m/s",
+   "relative_humidity": "%",
+   "uv_irradiance": "W/m2",
+   "optical_depth": "dimensionless",
+   "dose": "mGy/day, mSv/day"
+  },
+  "missing_removed": {
+   "wind_fill_999999999": 8999,
+   "humidity_invalid_or_empty": 41,
+   "uv_empty_or_out_of_range_TOP1": 30494,
+   "tau_invalid_-1": 44
+  },
+  "notes": "Hours are LTST hour bins (HH = HH:00-HH:59). MEDA data sampled every 10th row (1 Hz -> 0.1 Hz) for humidity/UV."
+ },
+ "dust_opacity": {
+  "source_id": "m20_mastcamz_tau",
+  "instrument": "Perseverance Mastcam-Z solar imaging (Lemmon, Mendeley Data, v2, 7 Apr 2026, PRELIMINARY)",
+  "doi": "10.17632/gktjp9jptb.2",
+  "license": "CC BY 4.0",
+  "field": "tau-R (630 nm)",
+  "sols": [
+   16,
+   1717
+  ],
+  "all": {
+   "n": 2058,
+   "p10": 0.372,
+   "median": 0.525,
+   "p90": 0.99,
+   "max": 2.183
+  },
+  "by_ls_30deg": {
+   "0": {
+    "n": 176,
+    "p10": 0.424,
+    "median": 0.523,
+    "p90": 0.637,
+    "max": 1.743
+   },
+   "30": {
+    "n": 204,
+    "p10": 0.376,
+    "median": 0.44,
+    "p90": 0.515,
+    "max": 0.892
+   },
+   "60": {
+    "n": 242,
+    "p10": 0.377,
+    "median": 0.436,
+    "p90": 0.499,
+    "max": 0.611
+   },
+   "90": {
+    "n": 230,
+    "p10": 0.405,
+    "median": 0.499,
+    "p90": 0.604,
+    "max": 0.805
+   },
+   "120": {
+    "n": 239,
+    "p10": 0.291,
+    "median": 0.415,
+    "p90": 0.63,
+    "max": 1.11
+   },
+   "150": {
+    "n": 204,
+    "p10": 0.297,
+    "median": 0.434,
+    "p90": 0.604,
+    "max": 1.392
+   },
+   "180": {
+    "n": 112,
+    "p10": 0.487,
+    "median": 0.58,
+    "p90": 0.738,
+    "max": 1.443
+   },
+   "210": {
+    "n": 125,
+    "p10": 0.954,
+    "median": 1.095,
+    "p90": 1.523,
+    "max": 2.183
+   },
+   "240": {
+    "n": 104,
+    "p10": 0.855,
+    "median": 0.967,
+    "p90": 1.066,
+    "max": 1.37
+   },
+   "270": {
+    "n": 108,
+    "p10": 0.593,
+    "median": 0.717,
+    "p90": 0.837,
+    "max": 1.015
+   },
+   "300": {
+    "n": 124,
+    "p10": 0.548,
+    "median": 0.769,
+    "p90": 1.573,
+    "max": 1.796
+   },
+   "330": {
+    "n": 146,
+    "p10": 0.698,
+    "median": 0.848,
+    "p90": 1.063,
+    "max": 1.382
+   }
+  },
+  "by_hour_ltst": {
+   "6": {
+    "n": 35,
+    "median": 0.548
+   },
+   "7": {
+    "n": 63,
+    "median": 0.594
+   },
+   "8": {
+    "n": 71,
+    "median": 0.547
+   },
+   "9": {
+    "n": 64,
+    "median": 0.636
+   },
+   "10": {
+    "n": 166,
+    "median": 0.549
+   },
+   "11": {
+    "n": 261,
+    "median": 0.537
+   },
+   "12": {
+    "n": 323,
+    "median": 0.525
+   },
+   "13": {
+    "n": 252,
+    "median": 0.549
+   },
+   "14": {
+    "n": 216,
+    "median": 0.483
+   },
+   "15": {
+    "n": 276,
+    "median": 0.499
+   },
+   "16": {
+    "n": 231,
+    "median": 0.482
+   },
+   "17": {
+    "n": 55,
+    "median": 0.459
+   }
+  },
+  "summary": "Clearest Ls 30-150 (median tau 0.42-0.50); dustiest Ls 210-240 (median 0.97-1.10, max 2.18). Little daytime variation (median 0.46-0.64).",
+  "note": "Mastcam-Z is not MEDA, but it is the same rover at the same site."
+ },
+ "humidity": {
+  "source_id": "meda_rhs",
+  "instrument": "Perseverance MEDA HS (derived, DER_RHS)",
+  "field": "LOCAL_RELATIVE_HUMIDITY (%)",
+  "sols": [
+   105,
+   150,
+   200,
+   246,
+   290,
+   335,
+   380,
+   425,
+   470,
+   515,
+   560,
+   605,
+   650,
+   695
+  ],
+  "quality": "Sols before 63 excluded (MEDA README: HS not reliable before sol 63). RH is at the sensor's local temperature.",
+  "by_hour_ltst": {
+   "0": {
+    "n": 1324,
+    "p10": 2.14,
+    "median": 4.52,
+    "p90": 11.23,
+    "max": 18.61
+   },
+   "1": {
+    "n": 1880,
+    "p10": 4.42,
+    "median": 8.2,
+    "p90": 12.67,
+    "max": 23.54
+   },
+   "2": {
+    "n": 1458,
+    "p10": 2.6,
+    "median": 8.34,
+    "p90": 21.64,
+    "max": 30.57
+   },
+   "3": {
+    "n": 1448,
+    "p10": 4.17,
+    "median": 15.07,
+    "p90": 21.64,
+    "max": 35.93
+   },
+   "4": {
+    "n": 1268,
+    "p10": 5.84,
+    "median": 16.24,
+    "p90": 34.29,
+    "max": 40.19
+   },
+   "5": {
+    "n": 1195,
+    "p10": 11.59,
+    "median": 17.61,
+    "p90": 34.13,
+    "max": 46.83
+   },
+   "6": {
+    "n": 1729,
+    "p10": 0.98,
+    "median": 10.09,
+    "p90": 19.26,
+    "max": 42.87
+   },
+   "7": {
+    "n": 1817,
+    "p10": 0.2,
+    "median": 1.47,
+    "p90": 6.24,
+    "max": 18.88
+   },
+   "8": {
+    "n": 2182,
+    "p10": 0.15,
+    "median": 0.37,
+    "p90": 0.9,
+    "max": 1.43
+   },
+   "9": {
+    "n": 2057,
+    "p10": 0.02,
+    "median": 0.17,
+    "p90": 0.21,
+    "max": 0.3
+   },
+   "10": {
+    "n": 2051,
+    "p10": 0,
+    "median": 0.07,
+    "p90": 0.13,
+    "max": 0.2
+   },
+   "11": {
+    "n": 2464,
+    "p10": 0,
+    "median": 0.06,
+    "p90": 0.17,
+    "max": 0.19
+   },
+   "12": {
+    "n": 2925,
+    "p10": 0,
+    "median": 0.08,
+    "p90": 0.16,
+    "max": 0.18
+   },
+   "13": {
+    "n": 2972,
+    "p10": 0,
+    "median": 0.03,
+    "p90": 0.16,
+    "max": 0.17
+   },
+   "14": {
+    "n": 2720,
+    "p10": 0,
+    "median": 0.06,
+    "p90": 0.11,
+    "max": 0.17
+   },
+   "15": {
+    "n": 2532,
+    "p10": 0,
+    "median": 0.06,
+    "p90": 0.17,
+    "max": 0.18
+   },
+   "16": {
+    "n": 2780,
+    "p10": 0,
+    "median": 0.05,
+    "p90": 0.12,
+    "max": 0.18
+   },
+   "17": {
+    "n": 2217,
+    "p10": 0.02,
+    "median": 0.11,
+    "p90": 0.18,
+    "max": 0.24
+   },
+   "18": {
+    "n": 2553,
+    "p10": 0.14,
+    "median": 0.24,
+    "p90": 0.44,
+    "max": 0.8
+   },
+   "19": {
+    "n": 2557,
+    "p10": 0.24,
+    "median": 0.38,
+    "p90": 0.66,
+    "max": 2.09
+   },
+   "20": {
+    "n": 2607,
+    "p10": 0.47,
+    "median": 0.71,
+    "p90": 1.24,
+    "max": 3.33
+   },
+   "21": {
+    "n": 2477,
+    "p10": 0.51,
+    "median": 1.4,
+    "p90": 2.7,
+    "max": 6.18
+   },
+   "22": {
+    "n": 2260,
+    "p10": 1.04,
+    "median": 2.27,
+    "p90": 4.32,
+    "max": 8.71
+   },
+   "23": {
+    "n": 2136,
+    "p10": 1.65,
+    "median": 3.55,
+    "p90": 6.17,
+    "max": 12.11
+   }
+  },
+  "summary": "Daytime (08:00-17:59) median below 0.4 %; highest before dawn (04:00-05:59 median 16-18 %, max 47 %)."
+ },
+ "uv": {
+  "source_id": "meda_rds",
+  "instrument": "Perseverance MEDA RDS TOP_3 (calibrated, CAL_RDS), 250-400 nm",
+  "field": "RDS_TOP_3 (W/m2)",
+  "sols": [
+   15,
+   60,
+   105,
+   150,
+   200,
+   246,
+   290,
+   335,
+   380,
+   425,
+   470,
+   515,
+   560,
+   605,
+   650,
+   695
+  ],
+  "quality": "Narrow field of view (+-15 deg, Apestigue et al. 2022): mostly diffuse sky light. High values (p90 at 11-12 h) appear only when the Sun is inside the field of view. This is NOT total UV irradiance or a UV index; use only as a relative daily cycle.",
+  "by_hour_ltst": {
+   "6": {
+    "n": 1879,
+    "sols": 10,
+    "p10": 0.003892,
+    "median": 0.008755,
+    "p90": 0.01633
+   },
+   "7": {
+    "n": 1778,
+    "sols": 10,
+    "p10": 0.01576,
+    "median": 0.02384,
+    "p90": 0.03397
+   },
+   "8": {
+    "n": 2488,
+    "sols": 12,
+    "p10": 0.03247,
+    "median": 0.0477,
+    "p90": 0.06528
+   },
+   "9": {
+    "n": 2172,
+    "sols": 12,
+    "p10": 0.06853,
+    "median": 0.09323,
+    "p90": 0.1524
+   },
+   "10": {
+    "n": 2362,
+    "sols": 12,
+    "p10": 0.1285,
+    "median": 0.2184,
+    "p90": 0.4826
+   },
+   "11": {
+    "n": 2952,
+    "sols": 14,
+    "p10": 0.2295,
+    "median": 0.6539,
+    "p90": 9.568
+   },
+   "12": {
+    "n": 3496,
+    "sols": 15,
+    "p10": 0.1089,
+    "median": 0.7084,
+    "p90": 12.35
+   },
+   "13": {
+    "n": 3553,
+    "sols": 15,
+    "p10": 0.09026,
+    "median": 0.1909,
+    "p90": 0.5533
+   },
+   "14": {
+    "n": 3301,
+    "sols": 15,
+    "p10": 0.04664,
+    "median": 0.07942,
+    "p90": 0.1399
+   },
+   "15": {
+    "n": 3115,
+    "sols": 15,
+    "p10": 0.0241,
+    "median": 0.03578,
+    "p90": 0.06527
+   },
+   "16": {
+    "n": 3282,
+    "sols": 15,
+    "p10": 0.01133,
+    "median": 0.01944,
+    "p90": 0.02834
+   },
+   "17": {
+    "n": 2441,
+    "sols": 13,
+    "p10": 0.003738,
+    "median": 0.008466,
+    "p90": 0.01765
+   }
+  },
+  "channel_reference": "Apestigue et al. 2022, Sensors 22(8):2907, Table 2"
+ }
+}

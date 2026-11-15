@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mars Gezgini: Jezero Rota Haritası</title>
+<title>Mars Rover: Jezero Route Map</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -112,8 +112,8 @@ footer{padding:26px 0 44px;color:var(--dim);font-size:13px;border-top:1px solid 
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">Jezero · rota planlama</div>
-    <h1>Mars gezgini <span>rota haritası</span></h1>
+    <div class="kicker">Jezero · route planning</div>
+    <h1>Mars rover <span>route map</span></h1>
   </div>
 </header>
 
@@ -122,42 +122,42 @@ footer{padding:26px 0 44px;color:var(--dim);font-size:13px;border-top:1px solid 
     <div class="card mapcard">
       <div class="maptools">
         <div class="seg" id="layers">
-          <button data-l="elev" class="on">Yükseklik</button>
-          <button data-l="slope">Eğim</button>
-          <button data-l="haz">Tehlike</button>
+          <button data-l="elev" class="on">Elevation</button>
+          <button data-l="slope">Slope</button>
+          <button data-l="haz">Hazard</button>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <div class="seg" id="range">
             <button data-range="jezero" class="on">Jezero</button>
             <button data-range="mars">Mars</button>
           </div>
-          <button class="btn" id="setA" title="İmlecin son bulunduğu arazi noktasını başlangıç yap">A'yı koy</button>
-          <button class="btn" id="setB" title="İmlecin son bulunduğu arazi noktasını varış yap">B'yi koy</button>
-          <button class="btn" id="clear">Temizle</button>
+          <button class="btn" id="setA" title="Set the last terrain point under the cursor as the start">Set A</button>
+          <button class="btn" id="setB" title="Set the last terrain point under the cursor as the destination">Set B</button>
+          <button class="btn" id="clear">Clear</button>
           <button class="btn" id="swap">A ⇄ B</button>
         </div>
       </div>
       <div id="guide"></div>
       <div class="mapbox" id="mapbox">
-        <canvas id="globe" tabindex="0" aria-label="Mars küresi ve Jezero arazi haritası"></canvas>
+        <canvas id="globe" tabindex="0" aria-label="Mars globe and Jezero terrain map"></canvas>
         <div id="scale"><span id="scaleLabel">--</span><div class="bar" id="scaleBar"></div></div>
         <div id="tip"></div>
       </div>
       <div class="legend" id="legend"></div>
-      <div class="hint">Arazi üzerinde imleci konumlandırıp A ile başlangıcı, B ile varışı işaretleyin. Küreyi sürükleyerek döndürebilirsiniz.</div>
+      <div class="hint">Point at the terrain and press A to mark the start, B to mark the destination. Drag the globe to rotate it.</div>
     </div>
 
     <aside class="side">
       <div class="card">
-        <h3>Rover rotası</h3>
-        <p class="note">Güvenli rota varsa seçilir. Yoksa en düşük riskli alternatif, tehlikeleriyle birlikte gösterilir.</p>
-        <button class="btn" id="calculate" style="width:100%;margin-top:14px">Hesapla</button>
+        <h3>Rover route</h3>
+        <p class="note">A safe route is chosen if one exists. Otherwise the least-risk alternative is shown, with its hazards.</p>
+        <button class="btn" id="calculate" style="width:100%;margin-top:14px">Calculate</button>
         <div class="warnbox" id="warn"></div>
       </div>
       <div class="card">
-        <h3>Rota özeti</h3>
+        <h3>Route summary</h3>
         <div class="stats" id="stats"></div>
-        <div class="note" style="margin-top:8px;font-size:12px">Eğim kaynağı: CTX 20 m + kısmi HiRISE 1 m. AI arazi değerlerini üretmez.</div>
+        <div class="note" style="margin-top:8px;font-size:12px">Slope source: CTX 20 m + partial HiRISE 1 m. The AI does not generate terrain values.</div>
       </div>
     </aside>
   </div>
@@ -165,15 +165,15 @@ footer{padding:26px 0 44px;color:var(--dim);font-size:13px;border-top:1px solid 
 
 <section>
   <div class="wrap">
-    <h2>Rota profili</h2>
-    <p class="sub">Rota boyunca yükseklik ve eğim. Grafiğin üzerinde gezinince haritada o nokta işaretlenir.</p>
+    <h2>Route profile</h2>
+    <p class="sub">Elevation and slope along the route. Hover over a chart to mark that point on the map.</p>
     <div class="charts">
       <div class="card chart">
-        <div class="cap"><span>Yükseklik (m, göreli)</span><span><span style="color:var(--safe)">━</span> Rover rotası</span></div>
+        <div class="cap"><span>Elevation (m, relative)</span><span><span style="color:var(--safe)">━</span> Rover route</span></div>
         <canvas id="chElev"></canvas>
       </div>
       <div class="card chart">
-        <div class="cap"><span>Eğim (°)</span><span><span style="color:var(--safe)">━</span> Rover rotası</span></div>
+        <div class="cap"><span>Slope (°)</span><span><span style="color:var(--safe)">━</span> Rover route</span></div>
         <canvas id="chSlope"></canvas>
       </div>
     </div>
@@ -184,15 +184,15 @@ footer{padding:26px 0 44px;color:var(--dim);font-size:13px;border-top:1px solid 
 <section>
   <div class="wrap why">
     <div>
-      <h2>Bu rota neden seçildi?</h2>
-      <p class="sub">Özet, gerçek arazi metrikleri ve hesaplanan rota üzerinden hazırlanır.</p>
+      <h2>Why this route?</h2>
+      <p class="sub">The summary is built from real terrain metrics and the computed route.</p>
       <ol id="reasons"></ol>
     </div>
     <div>
       <div class="card">
-        <h3>Veri ve yöntem</h3>
-        <p class="note">Rota motoru gerçek CTX ve HiRISE türetilmiş arazi hücrelerini kullanır. Model eğim veya yükseklik üretmez.</p>
-        <p class="note">AI rotayı değiştirmez; yalnızca doğrulanmış metrikleri Türkçe bir rota özeti ve navigasyon önerisine dönüştürür.</p>
+        <h3>Data and method</h3>
+        <p class="note">The route engine uses real terrain cells derived from CTX and HiRISE. The model does not generate slope or elevation.</p>
+        <p class="note">The AI does not change the route; it only turns the verified metrics into an English route summary and navigation advice.</p>
       </div>
     </div>
   </div>
@@ -200,52 +200,52 @@ footer{padding:26px 0 44px;color:var(--dim);font-size:13px;border-top:1px solid 
 
 <section class="secondary-content">
   <div class="wrap">
-    <h2>Bir aracın aldığı yolu neler etkiler?</h2>
-    <p class="sub">Eğimli arazide ilerleyen bir aracın ne kadar yol alacağını belirleyen etkenler ve her birinin Mars'ta nasıl değiştiği.</p>
+    <h2>What affects how far a vehicle travels?</h2>
+    <p class="sub">The factors that set how far a vehicle travels on sloped ground, and how each one changes on Mars.</p>
     <div class="grid2">
-      <div class="card fcard"><div class="tag">01 · İlk hız (v₀)</div>
-        <p>En etkili faktör budur. Alınan yol hızın karesiyle artar: hız iki katına çıkarsa yol yaklaşık dört katına çıkar.</p>
-        <div class="mars"><b>Mars'ta:</b> Gezginler çok yavaştır; Perseverance'ın azami hızı saatte yaklaşık 150 metredir. Bu hızda araç neredeyse anında durur.</div></div>
-      <div class="card fcard"><div class="tag">02 · Eğim açısı (θ)</div>
-        <p>Rampa dikleştikçe yer çekiminin yola paralel bileşeni (mg·sinθ) büyür.</p>
-        <ul><li>Yukarı çıkan araç daha çabuk yavaşlar, daha kısa yol alır.</li><li>Aşağı inen araç daha hızlı ivmelenir.</li></ul>
-        <div class="mars"><b>Mars'ta:</b> Curiosity ve Perseverance 45°'lik yatmaya devrilmeden dayanacak biçimde tasarlandı, ama sürücüler 30°'den dik eğimlerden kaçınır. Bu simülasyonun varsayılan sınırı daha da temkinli: 20°.</div></div>
-      <div class="card fcard"><div class="tag">03 · Sürtünme katsayısı (μ)</div>
-        <p>Yolun yüzeyine (asfalt, buz, toprak) ve lastiklerin durumuna bağlıdır. Sürtünme kuvveti μ·mg·cosθ olduğundan sürtünme arttıkça alınan yol kısalır.</p>
-        <div class="mars"><b>Mars'ta:</b> Yüzey gevşek kum, toz ve kayadan oluşur. Yumuşak kumda tekerlekler patinaj yapar; haritadaki sarı alanlar bu yüzden cezalıdır.</div></div>
-      <div class="card fcard"><div class="tag">04 · Yer çekimi ivmesi (g)</div>
-        <p>Dünya'da yaklaşık 9,8 m/s²'dir. Yer çekimi azaldıkça aynı rampada araç daha uzağa gider.</p>
-        <div class="mars"><b>Mars'ta:</b> g ≈ 3,72 m/s². Aynı hız ve aynı rampada araç Dünya'dakinin yaklaşık 2,6 katı yol alır; Ay'da (1,62 m/s²) bu oran yaklaşık 6 kattır. Fren mesafesi de aynı oranda uzar.</div></div>
-      <div class="card fcard"><div class="tag">05 · Hava direnci</div>
-        <p>Hız, aracın şekli (aerodinamik yapısı) ve ön yüzey alanı arttıkça etkisi büyür.</p>
-        <div class="mars"><b>Mars'ta:</b> Atmosfer yoğunluğu Dünya'nınkinin yaklaşık %1,6'sıdır; aynı hızda hava direnci 60 kat kadar küçüktür ve gezgin hızlarında yok sayılır.</div></div>
-      <div class="card fcard"><div class="tag">06 · Yuvarlanma direnci</div>
-        <p>Lastik basıncına, lastik tipine ve aracın ağırlığına bağlıdır.</p>
-        <div class="mars"><b>Mars'ta:</b> Gezginlerde havalı lastik yoktur; Curiosity ve Perseverance alüminyum tekerlek kullanır. Tekerlek yumuşak zemine gömüldükçe yuvarlanma direnci hızla artar.</div></div>
-      <div class="card fcard"><div class="tag">07 · Motor gücü ve fren</div>
-        <p>Araç motorla itiliyorsa ya da fren yapıyorsa bunlar da alınan yolu doğrudan belirler.</p>
-        <div class="mars"><b>Mars'ta:</b> Gezginler elektrik motorlarıyla sürülür. Curiosity ve Perseverance'ın radyoizotop jeneratörü yaklaşık 110 W üretir; güç sınırlı olduğu için her tırmanışın enerji bedeli önemlidir.</div></div>
-      <div class="card fcard" style="border-color:#5a3a22"><div class="tag">Kütle hakkında not</div>
-        <p>İdeal durumda, yani hava direnci yokken kütle alınan yolu etkilemez. Hem yer çekimi hem sürtünme kütleyle orantılı olduğu için kütle denklemde sadeleşir.</p>
-        <div class="mars"><b>Mars'ta:</b> Hava direnci neredeyse sıfır olduğundan bu ideal durum Mars'ta Dünya'dakinden daha iyi geçerlidir.</div></div>
+      <div class="card fcard"><div class="tag">01 · Initial speed (v₀)</div>
+        <p>This is the strongest factor. Distance grows with the square of speed: double the speed and the distance roughly quadruples.</p>
+        <div class="mars"><b>On Mars:</b> Rovers are very slow; Perseverance tops out at about 150 metres per hour. At that speed the vehicle stops almost instantly.</div></div>
+      <div class="card fcard"><div class="tag">02 · Slope angle (θ)</div>
+        <p>The steeper the ramp, the larger the component of gravity along the path (mg·sinθ).</p>
+        <ul><li>A vehicle going uphill slows down sooner and travels less.</li><li>A vehicle going downhill accelerates faster.</li></ul>
+        <div class="mars"><b>On Mars:</b> Curiosity and Perseverance were designed to withstand a 45° tilt without tipping over, but drivers avoid slopes steeper than 30°. This simulation's default limit is even more cautious: 20°.</div></div>
+      <div class="card fcard"><div class="tag">03 · Friction coefficient (μ)</div>
+        <p>It depends on the surface (asphalt, ice, soil) and the state of the tyres. The friction force is μ·mg·cosθ, so more friction means a shorter distance.</p>
+        <div class="mars"><b>On Mars:</b> The surface is loose sand, dust and rock. Wheels slip in soft sand, which is why the yellow areas on the map are penalised.</div></div>
+      <div class="card fcard"><div class="tag">04 · Gravitational acceleration (g)</div>
+        <p>On Earth it is about 9.8 m/s². With weaker gravity, a vehicle travels further on the same ramp.</p>
+        <div class="mars"><b>On Mars:</b> g ≈ 3.72 m/s². At the same speed on the same ramp a vehicle travels about 2.6 times as far as on Earth; on the Moon (1.62 m/s²) the ratio is about 6. Braking distance grows by the same ratio.</div></div>
+      <div class="card fcard"><div class="tag">05 · Air resistance</div>
+        <p>Its effect grows with speed, the vehicle's shape (aerodynamics) and its frontal area.</p>
+        <div class="mars"><b>On Mars:</b> The atmosphere is about 1.6% as dense as Earth's; at the same speed air resistance is about 60 times smaller and is negligible at rover speeds.</div></div>
+      <div class="card fcard"><div class="tag">06 · Rolling resistance</div>
+        <p>It depends on tyre pressure, tyre type and the vehicle's weight.</p>
+        <div class="mars"><b>On Mars:</b> Rovers have no pneumatic tyres; Curiosity and Perseverance use aluminium wheels. Rolling resistance rises quickly as a wheel sinks into soft ground.</div></div>
+      <div class="card fcard"><div class="tag">07 · Motor power and brakes</div>
+        <p>If the vehicle is driven by a motor or is braking, these also directly set the distance.</p>
+        <div class="mars"><b>On Mars:</b> Rovers are driven by electric motors. The radioisotope generator on Curiosity and Perseverance produces about 110 W; power is limited, so the energy cost of every climb matters.</div></div>
+      <div class="card fcard" style="border-color:#5a3a22"><div class="tag">A note on mass</div>
+        <p>In the ideal case, with no air resistance, mass does not affect the distance. Gravity and friction are both proportional to mass, so mass cancels out of the equation.</p>
+        <div class="mars"><b>On Mars:</b> Air resistance is nearly zero, so this ideal case holds better on Mars than on Earth.</div></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h3>Durma mesafesi hesaplayıcı</h3>
-      <p class="note" style="margin:0">Aynı araç, aynı hız ve aynı eğimde Mars'ta, Dünya'da ve Ay'da durana kadar ne kadar yol alır?</p>
+      <h3>Stopping distance calculator</h3>
+      <p class="note" style="margin:0">How far does the same vehicle, at the same speed and slope, travel before stopping on Mars, Earth and the Moon?</p>
       <div class="calc">
         <div>
-          <div class="ctrl"><label>İlk hız (v₀) <b id="cVv"></b></label><input type="range" id="cV" min="0.5" max="30" step="0.5" value="5"></div>
-          <div class="ctrl"><label>Eğim açısı (θ) <b id="cTv"></b></label><input type="range" id="cT" min="0" max="40" step="0.5" value="10"></div>
-          <div class="ctrl"><label>Sürtünme katsayısı (μ) <b id="cMuv"></b></label><input type="range" id="cMu" min="0.05" max="1" step="0.05" value="0.5"></div>
-          <div class="ctrl"><label>Yön</label><select id="cDir"><option value="up">Yokuş yukarı (motor kapalı, frenli)</option><option value="down">Yokuş aşağı (frenleyerek)</option></select></div>
-          <button class="btn" id="cRoute">Rotadaki en dik eğimi kullan</button>
+          <div class="ctrl"><label>Initial speed (v₀) <b id="cVv"></b></label><input type="range" id="cV" min="0.5" max="30" step="0.5" value="5"></div>
+          <div class="ctrl"><label>Slope angle (θ) <b id="cTv"></b></label><input type="range" id="cT" min="0" max="40" step="0.5" value="10"></div>
+          <div class="ctrl"><label>Friction coefficient (μ) <b id="cMuv"></b></label><input type="range" id="cMu" min="0.05" max="1" step="0.05" value="0.5"></div>
+          <div class="ctrl"><label>Direction</label><select id="cDir"><option value="up">Uphill (motor off, braking)</option><option value="down">Downhill (braking)</option></select></div>
+          <button class="btn" id="cRoute">Use the route's max slope</button>
         </div>
         <div>
           <div id="cBars"></div>
           <div class="note" id="cOut"></div>
           <div class="formula" id="cFormula" style="color:var(--short)"></div>
-          <div class="note" style="font-size:12px">Hesap hava ve yuvarlanma direncini yok sayar; μ, frenleme sırasındaki etkin sürtünme katsayısıdır. Kütle sadeleştiği için sonuca girmez.</div>
+          <div class="note" style="font-size:12px">The calculation ignores air and rolling resistance; μ is the effective friction coefficient while braking. Mass cancels out, so it does not enter the result.</div>
         </div>
       </div>
     </div>
@@ -254,31 +254,31 @@ footer{padding:26px 0 44px;color:var(--dim);font-size:13px;border-top:1px solid 
 
 <section class="secondary-content">
   <div class="wrap">
-    <h2>Gerçek görevlerden dersler</h2>
-    <p class="sub">Simülasyondaki cezaların her biri, Mars'ta gerçekten yaşanmış bir sorundan geliyor.</p>
+    <h2>Lessons from real missions</h2>
+    <p class="sub">Every penalty in the simulation comes from a problem that really happened on Mars.</p>
     <div class="grid3">
-      <div class="card fcard"><div class="tag">Yan eğim</div><h3>Yokuş yukarı ile yamaç boyunca aynı şey değil</h3>
-        <p>Aynı yamaçta gezgin <b>düz yukarı</b> çıkarsa tekerlekler kayar ve enerji artar, ama devrilme riski düşüktür. <b>Yamaç boyunca yan</b> giderse gövde yana yatar; devrilme ve yana kayma riski büyür.</p>
-        <p>Algoritma bu yüzden eğimi hareket yönündeki ve yanal bileşen olarak ikiye ayırıp ayrı ayrı cezalandırır.</p>
-        <div class="formula">ileri = g·u &nbsp; yanal = |g × u|</div></div>
-      <div class="card fcard"><div class="tag">Yumuşak kum</div><h3>Düz ama tehlikeli</h3>
-        <p>Kum alanları neredeyse düzdür, yani eğim haritasında zararsız görünür. Ama tekerlekler gömülebilir.</p>
-        <p>Opportunity 2005'te “Purgatory” adlı kum dalgasına saplandı ve ancak yaklaşık beş haftada kurtarıldı. Spirit 2009'da “Troy” bölgesinde yumuşak toprağa saplandı; kurtarılamadı ve 2010'da iletişim kesildi.</p></div>
-      <div class="card fcard"><div class="tag">Kayalar</div><h3>Tekerlek hasarı</h3>
-        <p>Keskin kayalar tekerlekleri deler; büyük kayalar gövdenin altına takılır. Curiosity'nin alüminyum tekerleklerinde 2013'te beklenenden hızlı delik ve yırtıklar görülünce ekip rotaları daha yumuşak zeminlerden geçirmeye başladı.</p>
-        <p>Kaya yoğunluğu en çok <b>krater kenarlarında</b> (çarpmayla saçılan parçalar) ve dik sırt yamaçlarında yüksektir.</p></div>
-      <div class="card fcard"><div class="tag">Haritalama</div><h3>Yörüngeden yükseklik modeli</h3>
-        <p>Mars Reconnaissance Orbiter'daki HiRISE kamerası yüzeyi piksel başına yaklaşık 25–30 cm ayrıntıyla görüntüler. İki farklı açıdan çekilen görüntülerden <b>sayısal yükseklik modeli</b> üretilir; eğim ve tehlike haritaları bu modelden çıkarılır.</p></div>
-      <div class="card fcard"><div class="tag">Otonomi</div><h3>Yerde kendi kararını veren gezgin</h3>
-        <p>Dünya'daki ekip uzun rotayı yörünge haritalarıyla planlar. Perseverance ise AutoNav sistemiyle önündeki araziyi kendi kameralarıyla görür ve yakın engellerden sürüş sırasında kendisi kaçınır.</p></div>
-      <div class="card fcard"><div class="tag">Bu sayfa</div><h3>Basitleştirilmiş bir model</h3>
-        <p>Bu örnekte rota, simüle arazi verileriyle bir AI modelinden istenir. Gerçek planlamada güneş açısı, iletişim pencereleri, araç durumu ve bilimsel hedefler de hesaba girer; model çıktısı görev güvenliği için tek başına yeterli değildir.</p></div>
+      <div class="card fcard"><div class="tag">Cross slope</div><h3>Going uphill is not the same as going across a slope</h3>
+        <p>On the same slope, a rover driving <b>straight up</b> slips and uses more energy, but its tip-over risk is low. Driving <b>sideways across the slope</b> tilts the body; the risk of tipping and sliding sideways grows.</p>
+        <p>That is why the algorithm splits slope into an along-track and a cross-track component and penalises each separately.</p>
+        <div class="formula">along = g·u &nbsp; cross = |g × u|</div></div>
+      <div class="card fcard"><div class="tag">Soft sand</div><h3>Flat but dangerous</h3>
+        <p>Sand fields are almost flat, so they look harmless on a slope map. But wheels can sink in.</p>
+        <p>In 2005 Opportunity got stuck in a sand ripple named “Purgatory” and took about five weeks to free. In 2009 Spirit got stuck in soft soil at “Troy”; it could not be freed and contact was lost in 2010.</p></div>
+      <div class="card fcard"><div class="tag">Rocks</div><h3>Wheel damage</h3>
+        <p>Sharp rocks puncture wheels; large rocks catch under the body. When holes and tears appeared faster than expected on Curiosity's aluminium wheels in 2013, the team began routing it over softer ground.</p>
+        <p>Rock density is highest on <b>crater rims</b> (impact ejecta) and on steep ridge slopes.</p></div>
+      <div class="card fcard"><div class="tag">Mapping</div><h3>Elevation models from orbit</h3>
+        <p>The HiRISE camera on Mars Reconnaissance Orbiter images the surface at about 25–30 cm per pixel. Images taken from two angles produce a <b>digital elevation model</b>; slope and hazard maps are derived from it.</p></div>
+      <div class="card fcard"><div class="tag">Autonomy</div><h3>A rover that decides on the ground</h3>
+        <p>The team on Earth plans the long route with orbital maps. Perseverance then uses its AutoNav system to see the terrain ahead with its own cameras and avoids nearby obstacles by itself while driving.</p></div>
+      <div class="card fcard"><div class="tag">This page</div><h3>A simplified model</h3>
+        <p>Here the route is computed from terrain data and explained by an AI model. Real planning also accounts for sun angle, communication windows, vehicle health and science goals; this output alone is not enough for mission safety.</p></div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">Jezero çalışma alanı · CTX DEM ve kısmi HiRISE türetilmiş eğim verisi. Rotalar görev planlaması yerine geçmez.</div>
+  <div class="wrap">Jezero study area · CTX DEM and partial HiRISE-derived slope data. Routes are not a substitute for mission planning.</div>
 </footer>
 
 <script type="importmap">
@@ -298,8 +298,22 @@ renderer.setSize(880,880,false); renderer.outputColorSpace=THREE.SRGBColorSpace;
 const scene=new THREE.Scene(); scene.background=new THREE.Color(0x050607);
 const camera=new THREE.PerspectiveCamera(36,1,0.0001,20);
 const controls=new OrbitControls(camera,renderer.domElement);
-controls.enablePan=false; controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.enablePan=false; controls.enableDamping=true; controls.dampingFactor=0.12;
 controls.minDistance=1.00015; controls.maxDistance=5;
+// Altitude-scaled input (globe radius = 1). OrbitControls rotates 2π·rotateSpeed per canvas height of drag,
+// while the visible ground spans about 2·h·tan(fov/2) ≈ 0.65·h radians, so rotateSpeed ≈ 0.10·h keeps the
+// ground under the cursor. 0.12·h is just above that: precise near Jezero, normal when far away.
+// Each wheel notch multiplies distance-to-centre by 0.95^zoomSpeed; solve for ≈10% altitude change per notch.
+const ROTATE_K=0.12, ROTATE_MIN=0.00001, ROTATE_MAX=0.8, ZOOM_STEP=0.10, ZOOM_MAX=0.6;
+function scaleControls(){
+  const d=camera.position.length(), h=Math.max(d-1,0.00001);
+  controls.rotateSpeed=Math.min(ROTATE_MAX,Math.max(ROTATE_MIN,ROTATE_K*h));
+  // OrbitControls divides wheel delta by 100·devicePixelRatio; undo that so a notch is the same on retina screens.
+  const dpr=Math.max(1,window.devicePixelRatio|0);
+  controls.zoomSpeed=dpr*Math.min(ZOOM_MAX,Math.max(0.000001,Math.log(1-ZOOM_STEP*h/d)/Math.log(0.95)));
+}
+// Refresh before OrbitControls handles each event too, so fast wheel bursts never use a stale speed.
+['wheel','pointerdown','pointermove'].forEach(type=>canvas.parentElement.addEventListener(type,scaleControls,{capture:true,passive:true}));
 const ambient=new THREE.AmbientLight(0xffffff,0.8); scene.add(ambient);
 const sun=new THREE.DirectionalLight(0xffffff,2.1); sun.position.set(-2,3,4); scene.add(sun);
 const globeGroup=new THREE.Group(); scene.add(globeGroup);
@@ -317,8 +331,8 @@ let A=null, B=null, example=false, safe=null, routeLoading=false, routeError='';
 let terrainReady=false, hoverPoint=null, selectionPoint=null, hoverX=null, press=null, drag=null;
 
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const fm=v=>Math.round(v).toLocaleString('tr-TR');
-const f1=v=>v.toLocaleString('tr-TR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const fm=v=>Math.round(v).toLocaleString('en-US');
+const f1=v=>v.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});
 const colorStops=[[0,[23,58,74]],[0.16,[20,125,130]],[0.36,[98,170,104]],[0.58,[209,198,76]],[0.8,[229,138,61]],[1,[255,240,176]]];
 function colorRamp(value){
   const t=clamp(value,0,1);
@@ -380,15 +394,15 @@ function updateScale(){
   $('scaleLabel').textContent=label;
   $('scaleBar').style.width=`${width}px`;
 }
-function animateGlobe(){requestAnimationFrame(animateGlobe);controls.update();renderer.render(scene,camera);}
+function animateGlobe(){requestAnimationFrame(animateGlobe);scaleControls();controls.update();renderer.render(scene,camera);}
 controls.addEventListener('change',updateScale);
 
 function renderLegend(){
-  const common='<span><span class="sw" style="background:var(--safe)"></span>Hesaplanan rota</span><span>Jezero veri alanında nokta seçimi</span>';
+  const common='<span><span class="sw" style="background:var(--safe)"></span>Computed route</span><span>Pick points inside the Jezero data area</span>';
   const detail=layer==='slope'
-    ? `<span>Yeşil → kırmızı eğim · kırmızı alanlar &gt; ${P.limit}°</span>`
-    : layer==='haz' ? '<span>Kırmızı alanlar rover için geçilemez eğim</span>'
-      : '<span>Alçak <span class="grad" style="background:linear-gradient(90deg,#173a4a,#147d82,#62aa68,#d1c64c,#e58a3d,#fff0b0)"></span>Yüksek · CTX/HiRISE</span>';
+    ? `<span>Green → red slope · red areas &gt; ${P.limit}°</span>`
+    : layer==='haz' ? '<span>Red areas: slope impassable for the rover</span>'
+      : '<span>Low <span class="grad" style="background:linear-gradient(90deg,#173a4a,#147d82,#62aa68,#d1c64c,#e58a3d,#fff0b0)"></span>High · CTX/HiRISE</span>';
   $('legend').innerHTML=detail+common;
 }
 function renderTerrainTexture(){
@@ -497,7 +511,7 @@ loadGlobeTexture(); setCamera(1.026); resizeGlobe(); animateGlobe();
 function drawChart(cv,series,o){
   const dpr=window.devicePixelRatio||1, w=cv.clientWidth, h=200;
   cv.width=w*dpr; cv.height=h*dpr; const c=cv.getContext('2d'); c.setTransform(dpr,0,0,dpr,0,0);
-  if(!series){ c.font='13px Space Grotesk, sans-serif'; c.fillStyle='#806e62'; c.textAlign='center'; c.fillText('Haritada iki nokta seçince burada görünür',w/2,h/2); cv._map=null; return; }
+  if(!series){ c.font='13px Space Grotesk, sans-serif'; c.fillStyle='#806e62'; c.textAlign='center'; c.fillText('Pick two points on the map to see this chart',w/2,h/2); cv._map=null; return; }
   const L=44, R=10, Tp=10, Bt=26, pw=w-L-R, ph=h-Tp-Bt;
   const X=v=>L+v/o.xMax*pw, Y=v=>Tp+ph-(v-o.yMin)/(o.yMax-o.yMin)*ph;
   c.font='11px JetBrains Mono, monospace'; c.fillStyle='#806e62'; c.strokeStyle='#35261d'; c.lineWidth=1;
@@ -528,7 +542,7 @@ function chartHover(e){
   hoverX=x;
   let k=safe.profile.distance_m.findIndex(v=>v>=x); if(k<0) k=safe.profile.distance_m.length-1;
   hoverPoint=safe.points[k];
-  $('readout').textContent=`Rota · ${Math.round(safe.profile.distance_m[k])} m: yükseklik ${f1(safe.profile.elevation_m[k])} m, eğim ${f1(safe.profile.slope_deg[k])}°`;
+  $('readout').textContent=`Route · ${fm(safe.profile.distance_m[k])} m: elevation ${f1(safe.profile.elevation_m[k])} m, slope ${f1(safe.profile.slope_deg[k])}°`;
   drawOverlay(); drawCharts();
 }
 function chartLeave(){ hoverX=null; hoverPoint=null; hoverMesh.visible=false; $('readout').textContent=''; drawCharts(); }
@@ -538,18 +552,31 @@ function chartLeave(){ hoverX=null; hoverPoint=null; hoverMesh.visible=false; $(
 function renderStats(){
   const stats=$('stats');
   if(!safe){
-    const status=routeLoading?'İşleniyor…':routeError==='No traversable route exists for these limits'?'Rota bulunamadı':routeError?'Hata':routeDirty?'Hesaplama bekliyor':'—';
-    stats.innerHTML='<div>Durum</div><div class="v">'+status+'</div>';
+    const status=routeLoading?'Processing…':routeError==='No traversable route exists for these limits'?'No route found':routeError?'Error':routeDirty?'Waiting to calculate':'—';
+    stats.innerHTML='<div>Status</div><div class="v">'+status+'</div>';
     return;
   }
   const env=safe.environment||{};
   stats.innerHTML=[
-    ...(safe.fallback?[['Rota türü','En düşük risk · uyarılı']]:[]),
-    ['Mesafe',fm(env.distance_m)+' m'],['Yüzey mesafesi',fm(env.surface_distance_m)+' m'],
-    ['En dik eğim',f1(env.max_slope_deg)+'°'],['Ort. eğim',f1(env.mean_slope_deg)+'°'],
-    ['Tırmanış',fm(env.ascent_m)+' m'],['İniş',fm(env.descent_m)+' m'],
-    ['HiRISE kapsamı',f1(env.hirise_cell_share_pct||0)+'%'],['Dijkstra hareketi',safe.optimality.gridMoves]
+    ...(safe.fallback?[['Route type','Least-risk fallback · warning']]:[]),
+    ['Distance',fm(env.distance_m)+' m'],['Surface distance',fm(env.surface_distance_m)+' m'],
+    ['Max slope',f1(env.max_slope_deg)+'°'],['Mean slope',f1(env.mean_slope_deg)+'°'],
+    ['Ascent',fm(env.ascent_m)+' m'],['Descent',fm(env.descent_m)+' m'],
+    ['HiRISE coverage',f1(env.hirise_cell_share_pct||0)+'%'],['Dijkstra moves',safe.optimality.gridMoves],
+    ...weatherRows(env.weather)
   ].map(([label,value])=>`<div>${label}</div><div class="v">${value}</div>`).join('');
+}
+function weatherRows(w){
+  // NASA olcum verisi (MEDA, Mastcam-Z, Mars24): secilen yerel saatin ortanca degerleri, tahmin degil
+  if(!w||!w.available) return [['Weather','no data']];
+  const v=(x,u)=>Number.isFinite(x)?f1(x)+u:'—';
+  const rows=[[`Weather (${String(w.hour_ltst).padStart(2,'0')}:00 local)`,w.in_eva_window?'Inside EVA window':'Outside EVA window'],
+    ['Air temperature',v(w.air_temp_c,' °C')],['Ground temperature',v(w.ground_temp_c,' °C')],
+    ['Pressure',v(w.pressure_pa,' Pa')],['Wind (median)',w.wind_m_s?v(w.wind_m_s.median,' m/s'):'—'],
+    ['Dust (optical depth)',w.dust_optical_depth?w.dust_optical_depth.median.toLocaleString('en-US',{maximumFractionDigits:2}):'—']];
+  if(w.sun) rows.push(['Sun elevation',Number.isFinite(w.sun.elevation_deg)?f1(w.sun.elevation_deg)+'°':(Number.isFinite(w.sun.min_deg)?f1(w.sun.min_deg)+'–'+f1(w.sun.max_deg)+'°':'—')]);
+  if(Number.isFinite(w.radiation_msv_per_day)) rows.push(['Radiation (Gale)',w.radiation_msv_per_day.toLocaleString('en-US')+' mSv/day']);
+  return rows;
 }
 function renderReasons(){
   const list=$('reasons');
@@ -557,17 +584,17 @@ function renderReasons(){
   if(routeError||!A||!B||routeLoading||routeDirty||!safe){
     const item=document.createElement('li');
     item.textContent=routeError==='No traversable route exists for these limits'
-      ? 'Bu eğim ve kaya sınırlarıyla A ile B arasında geçilebilir rota bulunamadı. Eğim sınırını artırmayı veya noktaları taşımayı deneyin.'
-      : routeError||(!A?'Haritada başlangıç noktasını (A) seç.':!B?'Şimdi varış noktasını (B) seç.':routeLoading?'Rota hesaplanıyor…':routeDirty?'Hesaplamayı başlatmak için Hesapla düğmesine bas.':'Bu ayarlarla geçilebilir rota bulunamadı.');
+      ? 'No passable route between A and B with these slope and rock limits. Try raising the slope limit or moving the points.'
+      : routeError||(!A?'Pick the start point (A) on the map.':!B?'Now pick the destination (B).':routeLoading?'Calculating route…':routeDirty?'Press Calculate to start.':'No passable route found with these settings.');
     list.append(item);
   }else{
     if(safe.fallback){
       const warning=document.createElement('li');
-      warning.textContent=safe.routeWarning||'Tamamen geçilebilir rota bulunamadı; bu, mevcut seçenekler içindeki en düşük riskli alternatiftir.';
+      warning.textContent=safe.routeWarning||'No fully passable route was found; this is the least-risk fallback among the available options and it crosses hazardous terrain.';
       list.append(warning);
     }
     const why=document.createElement('li');
-    why.textContent=safe.why||'AI rota açıklaması alınamadı.';
+    why.textContent=safe.why||'AI route explanation unavailable.';
     list.append(why);
     for(const factor of safe.factors||[]){
       const item=document.createElement('li');
@@ -576,31 +603,31 @@ function renderReasons(){
     }
     if(safe.navigation){
       const item=document.createElement('li');
-      item.textContent=`Navigasyon: ${safe.navigation}`;
+      item.textContent=`Navigation: ${safe.navigation}`;
       list.append(item);
     }
   }
   const warning=$('warn');
   warning.style.display=routeError||safe?.fallback?'block':'none';
-  warning.textContent=routeError||(safe?.fallback?'Tamamen güvenli rota yok. Kırmızı çizgi, en düşük riskli fakat tehlikeli geçişi gösterir.':'');
+  warning.textContent=routeError||(safe?.fallback?'No fully safe route. The red line shows the least-risk fallback, which still crosses hazardous terrain.':'');
 }
 function renderGuide(){
   const g=$('guide');
-  if(!A) g.innerHTML='<b>Başlangıç:</b> Haritada konuma gelin; A\'yı koy düğmesine basın veya A tuşunu kullanın.';
-  else if(!B) g.innerHTML='<b>Varış:</b> Yeni konuma gelin; B\'yi koy düğmesine basın veya B tuşunu kullanın.';
-  else if(!terrainReady) g.innerHTML='<b>Arazi yükleniyor.</b> Gerçek pathing terrain verisi bekleniyor…';
-  else if(routeLoading) g.innerHTML='<b>Rota hesaplanıyor.</b> AI rota özeti hazırlanıyor…';
-  else if(routeError==='No traversable route exists for these limits') g.innerHTML='<b>Bu sınırlarla rota bulunamadı.</b> Eğim limitini artırın veya A/B noktalarını değiştirin.';
-  else if(routeError) g.innerHTML='<b>Rota alınamadı.</b> Harita ayarlarını veya backend durumunu kontrol et.';
-  else if(safe?.fallback) g.innerHTML='<b>Uyarılı alternatif rota.</b> Tamamen güvenli geçiş bulunamadı; kırmızı çizgi en düşük riskli seçeneği gösteriyor.';
-  else if(routeDirty) g.innerHTML='<b>Rota hazır.</b> Hesaplamayı başlatmak için Hesapla düğmesine bas.';
-  else if(example) g.innerHTML='<b>Örnek rota.</b> Kendi rotan için haritada iki noktaya tıkla.';
-  else if(safe) g.innerHTML='<b>Rota hazır.</b> AI rota özeti ve navigasyon önerisi hazır.';
-  else g.innerHTML='<b>Rota bulunamadı.</b> Ayarları değiştirip yeniden deneyebilirsin.';
+  if(!A) g.innerHTML='<b>Start:</b> Point at a location on the map; press Set A or the A key.';
+  else if(!B) g.innerHTML='<b>Destination:</b> Point at a new location; press Set B or the B key.';
+  else if(!terrainReady) g.innerHTML='<b>Loading terrain.</b> Waiting for real pathing terrain data…';
+  else if(routeLoading) g.innerHTML='<b>Calculating route.</b> Preparing AI route summary…';
+  else if(routeError==='No traversable route exists for these limits') g.innerHTML='<b>No route found with these limits.</b> Raise the slope limit or move points A/B.';
+  else if(routeError) g.innerHTML='<b>Route unavailable.</b> Check the map settings or the backend status.';
+  else if(safe?.fallback) g.innerHTML='<b>Least-risk fallback route.</b> No fully safe crossing was found; the red line shows the least-risk option, which crosses hazardous terrain.';
+  else if(routeDirty) g.innerHTML='<b>Points set.</b> Press Calculate to start.';
+  else if(example) g.innerHTML='<b>Example route.</b> Click two points on the map for your own route.';
+  else if(safe) g.innerHTML='<b>Route ready.</b> AI route summary and navigation advice are ready.';
+  else g.innerHTML='<b>No route found.</b> Change the settings and try again.';
   $('swap').disabled=!(A&&B); $('clear').disabled=!A; $('cRoute').disabled=!safe;
   $('setA').disabled=!selectionPoint; $('setB').disabled=!selectionPoint;
   $('calculate').disabled=!(A&&B)||routeLoading||!terrainReady;
-  $('calculate').textContent=routeLoading?'Hesaplanıyor…':routeDirty?'Hesapla':'Yeniden hesapla';
+  $('calculate').textContent=routeLoading?'Calculating…':routeDirty?'Calculate':'Recalculate';
 }
 
 /* ---------- route request ---------- */
@@ -629,16 +656,16 @@ async function requestRoute(){
       body:JSON.stringify({start:A,end:B})
     });
     const data=await response.json();
-    if(!response.ok) throw new Error(data.error||'Rota isteği başarısız oldu.');
+    if(!response.ok) throw new Error(data.error||'Route request failed.');
     if(requestId!==routeRequestId) return;
     if(data.route.length){
-      safe={points:data.route,profile:data.profile,optimality:data.optimality,environment:data.environment,why:data.narration?.why||'AI rota açıklaması alınamadı.',factors:data.narration?.factors||[],navigation:data.narration?.navigation||'',fallback:!!data.fallback,routeWarning:data.routeWarning};
+      safe={points:data.route,profile:data.profile,optimality:data.optimality,environment:data.environment,why:data.narration?.why||'AI route explanation unavailable.',factors:data.narration?.factors||[],navigation:data.narration?.navigation||'',fallback:!!data.fallback,routeWarning:data.routeWarning};
       routeLoading=false;
       updateAll();
-      if(data.narrationError) routeError=`Rota hesaplandı; AI özeti alınamadı: ${data.narrationError}`;
+      if(data.narrationError) routeError=`Route calculated; AI summary unavailable: ${data.narrationError}`;
     }
   }catch(error){
-    if(requestId===routeRequestId) routeError=error.message||'AI servisine ulaşılamadı.';
+    if(requestId===routeRequestId) routeError=error.message||'Could not reach the AI service.';
   }finally{
     if(requestId===routeRequestId){ routeLoading=false; updateAll(); }
   }
@@ -647,7 +674,7 @@ async function loadRealTerrain(){
   terrainReady=false; updateAll();
   try{
     const response=await fetch('/terrain');
-    if(!response.ok) throw new Error('Gerçek arazi verisi yüklenemedi.');
+    if(!response.ok) throw new Error('Could not load real terrain data.');
       const data=await response.json();
       T.bounds=data.bounds;
       const elevation=data.elevation.flat(), slope=data.slope.flat();
@@ -667,7 +694,7 @@ async function loadRealTerrain(){
     renderTerrainTexture(); buildTerrainMesh(); drawOverlay();
     invalidateRoute();
   }catch(error){
-    routeError=error.message||'Gerçek arazi verisi yüklenemedi.';
+    routeError=error.message||'Could not load real terrain data.';
     updateAll();
   }
 }
@@ -706,7 +733,7 @@ function updateHover(hit,event){
   if(!point){tip.style.display='none';return;}
   const rx=Math.round(point.x/(W-1)*(T.renderWidth-1)),ry=Math.round(point.y/(H-1)*(T.renderHeight-1));
   const index=ry*T.renderWidth+rx,slope=T.renderSlope[index],elevation=T.renderH[index],bad=slope>P.limit;
-  tip.innerHTML=`göreli yükseklik ${f1(elevation)} m<br>eğim <b style="color:${bad?'#ff7b7b':'#6fe3ff'}">${f1(slope)}°</b>${bad?'<br><b style="color:#ff7b7b">20° sınırının üstü</b>':''}`;
+  tip.innerHTML=`relative elevation ${f1(elevation)} m<br>slope <b style="color:${bad?'#ff7b7b':'#6fe3ff'}">${f1(slope)}°</b>${bad?'<br><b style="color:#ff7b7b">above the 20° limit</b>':''}`;
   const rect=mb.getBoundingClientRect();let left=event.clientX-rect.left+12,top=event.clientY-rect.top+12;
   if(left>rect.width-155)left-=170;if(top>rect.height-75)top-=85;
   tip.style.left=left+'px';tip.style.top=top+'px';tip.style.display=event.pointerType==='touch'?'none':'block';
@@ -785,21 +812,21 @@ $('calculate').addEventListener('click',()=>{
 window.addEventListener('resize',()=>{resizeGlobe();drawCharts();});
 
 /* ---------- durma mesafesi hesaplayıcı ---------- */
-const BODIES=[['Mars',3.72,'#ff7a3d'],['Dünya',9.81,'#6fe3ff'],['Ay',1.62,'#d9d2c8']];
-const fD=d=>d<1?f1(d*100)+' cm':(d<1000?f1(d)+' m':(d/1000).toLocaleString('tr-TR',{maximumFractionDigits:2})+' km');
+const BODIES=[['Mars',3.72,'#ff7a3d'],['Earth',9.81,'#6fe3ff'],['Moon',1.62,'#d9d2c8']];
+const fD=d=>d<1?f1(d*100)+' cm':(d<1000?f1(d)+' m':(d/1000).toLocaleString('en-US',{maximumFractionDigits:2})+' km');
 function calc(){
   const v=+$('cV').value, deg=+$('cT').value, th=deg/DEG, mu=+$('cMu').value, up=$('cDir').value==='up';
-  $('cVv').textContent=f1(v)+' m/s · '+fm(v*3.6)+' km/sa'; $('cTv').textContent=f1(deg)+'°'; $('cMuv').textContent=mu.toLocaleString('tr-TR',{minimumFractionDigits:2});
+  $('cVv').textContent=f1(v)+' m/s · '+fm(v*3.6)+' km/h'; $('cTv').textContent=f1(deg)+'°'; $('cMuv').textContent=mu.toLocaleString('en-US',{minimumFractionDigits:2});
   const k=up?Math.sin(th)+mu*Math.cos(th):mu*Math.cos(th)-Math.sin(th);
   $('cFormula').textContent=up?'d = v₀² / (2·g·(sinθ + μ·cosθ))':'d = v₀² / (2·g·(μ·cosθ − sinθ))';
   if(k<=1e-6){
     $('cBars').innerHTML='';
-    $('cOut').innerHTML='<b style="color:var(--danger)">Araç duramaz.</b> Bu eğimde tanθ ≥ μ olduğu için sürtünme aracı tutamaz; araç frenlese bile hızlanarak kayar. Bu sonuç yer çekiminden bağımsızdır: Mars\'ta da Dünya\'da da aynıdır.';
+    $('cOut').innerHTML='<b style="color:var(--danger)">The vehicle cannot stop.</b> On this slope tanθ ≥ μ, so friction cannot hold the vehicle; it slides and speeds up even while braking. This does not depend on gravity: it is the same on Mars and on Earth.';
     return;
   }
   const res=BODIES.map(b=>({n:b[0],g:b[1],c:b[2],d:v*v/(2*b[1]*k)})), mx=Math.max(...res.map(r=>r.d));
-  $('cBars').innerHTML=res.map(r=>`<div class="bar"><div class="top"><span>${r.n} <span style="color:var(--dim)">(g = ${r.g.toLocaleString('tr-TR')} m/s²)</span></span><b>${fD(r.d)}</b></div><div class="track"><div class="fill" style="width:${Math.max(1.5,r.d/mx*100)}%;background:${r.c}"></div></div></div>`).join('');
-  $('cOut').innerHTML='Araç Mars\'ta Dünya\'dakinin <b style="color:var(--text)">'+f1(res[0].d/res[1].d)+' katı</b> yol alır. Bu oran yalnızca g değerlerinin oranına bağlıdır; hız, eğim ve sürtünme değişse de aynı kalır.';
+  $('cBars').innerHTML=res.map(r=>`<div class="bar"><div class="top"><span>${r.n} <span style="color:var(--dim)">(g = ${r.g.toLocaleString('en-US')} m/s²)</span></span><b>${fD(r.d)}</b></div><div class="track"><div class="fill" style="width:${Math.max(1.5,r.d/mx*100)}%;background:${r.c}"></div></div></div>`).join('');
+  $('cOut').innerHTML='On Mars the vehicle travels <b style="color:var(--text)">'+f1(res[0].d/res[1].d)+' times</b> as far as on Earth. This ratio depends only on the ratio of g values; it stays the same when speed, slope or friction change.';
 }
 ['cV','cT','cMu','cDir'].forEach(id=>$(id).addEventListener('input',calc));
  $('cRoute').addEventListener('click',()=>{ if(safe){ $('cT').value=Math.min(40,Math.round(safe.environment.max_slope_deg*2)/2); calc(); } });

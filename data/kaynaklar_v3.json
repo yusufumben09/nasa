@@ -1,0 +1,197 @@
+{
+ "generated": "2026-11-14 (v3)",
+ "page_bbox_lonE_latN": [
+  77.1742,
+  17.9213,
+  78.2051,
+  18.8991
+ ],
+ "sources": [
+  {
+   "id": "spaceapps_resources",
+   "name": "NASA Space Apps 2026 – Martian Map challenge Resources",
+   "url": "https://www.spaceappschallenge.org/",
+   "status": "checked live 14 Nov 2026 19:58; unchanged since 13 Nov",
+   "use": "Official list: Mars Trek, USGS-NASA PGM interactive maps, Curiosity traverse example, Worldview, Perseverance Raw Images"
+  },
+  {
+   "id": "hirise_dtm_single",
+   "name": "HiRISE stereo DTMs (11 products, 1 m; 2 DTEED at 2 m)",
+   "url": "https://hirise.lpl.arizona.edu/PDS/DTM/",
+   "access": "ODE REST product query (pt=DTM)",
+   "size_gb": 7.9,
+   "coverage_pct_of_page": 17.4,
+   "status": "URLs from ODE, 14 Nov",
+   "use": "1 m slope where available"
+  },
+  {
+   "id": "msr_trn_mosaic",
+   "name": "MSR TRN HiRISE DTM/ortho mosaic (USGS, Aug 2024)",
+   "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars/MSR_TRN_HiRISE_soc_003_USGS_release_aug2024/MSR_TRN_HiRISE_soc_003_USGS_release_aug2024_mosaics.zip",
+   "license": "CC0",
+   "size_bytes": 5468062403,
+   "bbox": [
+    77.057,
+    18.135,
+    77.38,
+    18.588
+   ],
+   "use": "optional; extends HiRISE coverage to <=29.5% (upper bound)"
+  },
+  {
+   "id": "hirise_trn_2020",
+   "name": "Mars 2020 TRN HiRISE DTM + orthomosaic (USGS)",
+   "doi": "10.5066/P9QJDP48",
+   "license": "CC0",
+   "status": "already on Mac",
+   "coverage_pct_of_page": 13.0
+  },
+  {
+   "id": "ctx_dem",
+   "name": "CTX DEM/ortho (20 m / 6 m)",
+   "status": "already on Mac",
+   "note": "r=0.707 vs HiRISE slope; never reaches 90% recall of steep cells"
+  },
+  {
+   "id": "themis_ti",
+   "name": "THEMIS thermal inertia mosaic",
+   "status": "already on Mac (themis_ti_jezero.tif)",
+   "note": "use relative classes p20/p80, not absolute 150/400"
+  },
+  {
+   "id": "trek_wmts",
+   "name": "Mars Trek WMTS Jezero layers",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/{id}/1.0.0//default/default028mm/{z}/{row}/{col}.png",
+   "layers": [
+    "JEZ_hirise_soc_006_orthoMosaic_25cm_Eqc_latTs0_lon0_first_dd (z0-17)",
+    "NES_JEZ_MID_Visible_Mosaic_HiRISE_CTX_HRSC_GCS_MARS_07-10-2018 (z0-17)",
+    "JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0 (z0-13)"
+   ],
+   "status": "5 layers re-tested 14 Nov (trek_layers.json)",
+   "use": "globe/map texture instead of unknown-source image.png"
+  },
+  {
+   "id": "meda_tirs",
+   "name": "MEDA TIRS calibrated",
+   "url": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/",
+   "status": "in environment_meda.json (16 sols)"
+  },
+  {
+   "id": "meda_ps",
+   "name": "MEDA PS derived (DER_PS)",
+   "status": "added 14 Nov (16 sols, 617-812 Pa)"
+  },
+  {
+   "id": "meda_ws",
+   "name": "MEDA WS derived (DER_WS)",
+   "status": "added 14 Nov (sols 60-290 only)",
+   "quality": "WS damaged on sol 313; highest-confidence data sols 1-313 (Vicente-Retortillo, EPSC-DPS2025-1461)"
+  },
+  {
+   "id": "msl_rad",
+   "name": "Curiosity RAD dose",
+   "value": "0.21±0.04 mGy/day; 0.64±0.12 mSv/day",
+   "citation": "Hassler et al. 2014, Science 343, doi:10.1126/science.1244797",
+   "note": "Gale crater, not Jezero"
+  },
+  {
+   "id": "m20_raw_images",
+   "name": "Perseverance Raw Images API",
+   "url": "https://mars.nasa.gov/rss/api/?feed=raw_images&category=mars2020&feedtype=json&sol=N&num=50&page=0",
+   "status": "verified; site/drive match waypoint RMC"
+  },
+  {
+   "id": "m20_waypoints",
+   "name": "Mars 2020 waypoints/traverse JSON",
+   "status": "already on Mac"
+  },
+  {
+   "id": "sim3464",
+   "name": "USGS SIM 3464 Jezero geologic map",
+   "status": "already on Mac (PDF, JPGs, GeoJSON)"
+  },
+  {
+   "id": "lrv_slope",
+   "name": "Apollo LRV slope capability",
+   "value": "designed 20-23° favorable, 25° max",
+   "source": "NTRS 20250011301 (LPSC 2026)",
+   "note": "Moon vehicle; supports the 20° limit as a reference, not Mars-specific"
+  },
+  {
+   "id": "mars24",
+   "name": "Mars24 solar time algorithm (NASA GISS)",
+   "citation": "Allison & McEwen 2000, PSS 48, doi:10.1016/S0032-0633(99)00092-6",
+   "status": "optional — sun elevation per hour if needed"
+  },
+  {
+   "id": "rock_abundance",
+   "name": "HiRISE rock abundance (Golombek et al. 2017)",
+   "status": "NOT FOUND (rechecked 14 Nov v3)"
+  },
+  {
+   "id": "crism",
+   "name": "CRISM Jezero mosaic",
+   "status": "not used (team decision 14 Nov)"
+  },
+  {
+   "id": "meda_rhs",
+   "name": "MEDA HS derived (DER_RHS)",
+   "url": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/",
+   "license": "NASA PDS (public)",
+   "status": "added 14 Nov (14 sols, 105-695)"
+  },
+  {
+   "id": "meda_rds",
+   "name": "MEDA RDS calibrated (CAL_RDS) TOP_3 250-400 nm",
+   "url": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/",
+   "license": "NASA PDS (public)",
+   "status": "added; narrow FOV, relative cycle only"
+  },
+  {
+   "id": "meda_ancillary",
+   "name": "MEDA DER_ANCILLARY solar zenith angle",
+   "license": "NASA PDS (public)",
+   "status": "used for measured sun elevation"
+  },
+  {
+   "id": "m20_mastcamz_tau",
+   "name": "Perseverance Mastcam-Z Visible Aerosol Optical Depth Record (Lemmon)",
+   "url": "https://data.mendeley.com/datasets/gktjp9jptb/2",
+   "doi": "10.17632/gktjp9jptb.2",
+   "license": "CC BY 4.0",
+   "status": "downloaded in browser 14 Nov; 2058 rows, sols 16-1717; PRELIMINARY"
+  },
+  {
+   "id": "apestigue2022",
+   "name": "Apestigue et al. 2022, RDS for MEDA, Sensors 22(8):2907",
+   "doi": "10.3390/s22082907",
+   "use": "RDS channel bands and FOV"
+  },
+  {
+   "id": "mars24_am2000",
+   "name": "Mars24 algorithm (NASA GISS), Allison & McEwen 2000",
+   "doi": "10.1016/S0032-0633(99)00092-6",
+   "use": "sun elevation, Ls from sol (own Python implementation)"
+  },
+  {
+   "id": "crism_parente2021",
+   "name": "Parente et al. 2021, dominant mineralogy map, Mars2020 ellipse (CRISM)",
+   "url": "https://zenodo.org/records/5575824",
+   "doi": "10.5281/zenodo.5575824",
+   "license": "CC BY 4.0",
+   "status": "not used (team decision 14 Nov)"
+  },
+  {
+   "id": "pds_crism",
+   "name": "MRO CRISM PDS products HRL000040FF, FRT000047A3, FRT0005C5E, FRS00031442",
+   "license": "US public domain",
+   "status": "not used (team decision 14 Nov)"
+  },
+  {
+   "id": "robbins_v1",
+   "name": "Robbins & Hynek 2012 crater DB (USGS OGC API)",
+   "url": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1",
+   "status": "craters >=1 km only"
+  }
+ ]
+}

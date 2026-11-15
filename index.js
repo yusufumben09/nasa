@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
+const { weatherFor, waypointImagesFor, trekLayers } = require('./weather');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,17 +11,18 @@ const pathingModulePromise = import(pathToFileURL(path.join(__dirname, 'pathing/
 const pathingTerrainPromise = pathingModulePromise.then(({ Terrain }) => Terrain.load(path.join(__dirname, 'pathing/src/build')));
 const systemPrompt = 'You are a helpful assistant. Respond clearly and accurately.';
 const navigationSystemPrompt = [
-    'You are a practical Mars rover route analyst. Write all user-facing text in Turkish.',
+    'You are a practical Mars rover route analyst. Write all user-facing text in English.',
     'The route has already been calculated by weighted Dijkstra search. Do not modify the path or invent coordinates.',
     'If the route is marked as a least-risk fallback, state plainly that no fully passable route exists and that this alternative still crosses hazards. Explain the measured fallback risk; never call it safe or passable.',
     'Return one overview, not one explanation per waypoint. Explain why this route is preferred using only the supplied verified metrics: traversal cost, distance, surface distance, mean and maximum slope, ascent, descent, elevation, passability, depression/crater avoidance cost, nearby alternative tradeoff, and data source coverage.',
     'Explain that weighted Dijkstra minimizes the fixed balanced rover cost on this sampled grid, with a one-cell safety buffer around extreme or unknown terrain; it does not guarantee the shortest physical distance, best weather, or real-world safety. Compare the route factors clearly and mention endpoint adjustments when provided.',
     'If risk.shortestAlternative is present, compare its measured distance, balanced traversal cost, depression penalty, and adjacent blocked-cell contacts with the chosen route. Describe only differences supported by those values; do not assume the alternative is riskier. If it is absent, say the shortest and balanced objectives produced the same route.',
-    'Weather, temperature, dust, radiation, soil strength, and wind are unavailable unless explicitly supplied. State that they were not used; never invent weather conditions.',
+    'environment.weather holds measured medians for the selected local hour at Jezero (Perseverance MEDA temperature, pressure, wind and humidity; Mastcam-Z dust optical depth; Mars24 sun elevation; Curiosity RAD radiation from Gale crater). Describe them as typical measured conditions, not a forecast. Use only these supplied values; if a value is null, say it is unavailable. Soil strength is unavailable. Never invent weather conditions. Weather did not change the route geometry.',
     'Include a concise navigation summary describing the broad sequence of route directions and practical rover-following tips, without repeating every coordinate.',
-    'Return exactly one syntactically valid JSON object with this schema: {"why":"specific Turkish explanation","factors":[{"name":"Eğim","value":"verified value or comparison","effect":"why it matters"}],"environment":{"slope":"...","elevation":"...","surface":"...","weather":"veri yok"},"navigation":"concise Turkish overview and practical tips"}.',
+    'Return exactly one syntactically valid JSON object with this schema: {"why":"specific English explanation","factors":[{"name":"Slope","value":"verified value or comparison","effect":"why it matters"}],"environment":{"slope":"...","elevation":"...","surface":"...","weather":"short summary using only the supplied weather values"},"navigation":"concise English overview and practical tips"}.',
     'Every object property must have a colon between its name and value. Separate properties and array items with commas. Quote all property names and string values with double quotes. Do not use comments, trailing commas, or unquoted text.',
-    'The required structure is illustrated by this valid example: {"why":"Bu rota, sabit rover maliyetinde eğim ve tırmanış etkilerini dengeler. En kısa mesafe garantisi vermez; hava durumu verisi kullanılmamıştır.","factors":[{"name":"Eğim","value":"ortalama 8,2°, en yüksek 18,4°","effect":"Daha düşük eğim tırmanış ve kayma maliyetini azaltır."}],"environment":{"slope":"ortalama 8,2°","elevation":"tırmanış 42 m","surface":"yatay 1200 m, yüzey 1210 m","weather":"veri yok"},"navigation":"Rotayı sırayla takip edin; uzun düz bölümlerde yönü doğrulayın, dönüşlerde yavaşlayın ve waypoint sapmalarını kontrol edin."}.',
+    'The required structure is illustrated by this valid example (numbers are illustrative only; use the supplied values): {"why":"This route balances slope and climb under the fixed rover cost. It does not guarantee the shortest distance; typical measured conditions are listed below.","factors":[{"name":"Slope","value":"mean 8.2°, max 18.4°","effect":"Lower slope reduces climbing effort and slip risk."}],"environment":{"slope":"mean 8.2°","elevation":"ascent 42 m","surface":"horizontal 1200 m, surface 1210 m","weather":"air -40.0 °C, wind median 4.1 m/s"},"navigation":"Follow the route in order; confirm heading on long straight legs and slow down at turns."}.',
+    'Use only numbers that appear in the supplied JSON (you may convert metres to kilometres). Use a dot as the decimal separator.',
     'Output only the JSON object. Do not include markdown, code fences, greetings, analysis, or text outside it.'
 ].join(' ');
 
@@ -73,20 +75,136 @@ function parseAssistantJson(responseData) {
     return JSON.parse(jsonText);
 }
 
+// --- Narration number check (soft version, PR #1 review) ---
+// Only numbers WITH a physical unit (°, °C, K, m, km, m/s, Pa, %, mSv, mGy) are checked; unitless numbers
+// (counts, hours like 13:00, "8-connected", Ls, sol numbers) are never rejected.
+// A unit number passes if it is within 2% (or 0.05 absolute) of a fact with a matching unit/key, also after m <-> km
+// conversion, so rounding like "about 36 km" is fine. Facts = JSON sent to the model WITHOUT route coordinates.
+// If a sentence contains an unsupported unit number, ONLY that sentence is removed; the rest of the model text stays.
+// The whole narration is replaced by the template only if its structure is invalid or "why" becomes empty.
+const UNIT_NUMBER = /(-?\d[\d.,]*\d|-?\d)\s*(°\s?C|°|K\b|km\b|m\/s|m\b|Pa\b|%|mSv|mGy)/g;
+// Which fact keys a unit may be compared with (unit-aware, so "27.3°" is only checked against angles).
+const UNIT_KEYS = [
+    [/^°\s?C$/, /_c$|temp/],
+    [/^K$/, /_k$|temp/],
+    [/^°$/, /deg|slope|angle/],
+    [/^km$|^m$/, /_m$|_m_|distance|ascent|descent|elevation_(start|end)/],
+    [/^m\/s$/, /wind/],
+    [/^Pa$/, /pa$|pressure/],
+    [/^%$/, /pct|share|percent|humidity/],
+    [/^mSv$/, /msv/],
+    [/^mGy$/, /mgy/]
+];
+function factNumbers(facts) {
+    const out = [];
+    const walk = (v, key) => {
+        if (typeof v === 'number' && Number.isFinite(v)) out.push({ key, v });
+        else if (Array.isArray(v)) v.forEach(x => walk(x, key));
+        else if (v && typeof v === 'object') Object.entries(v).forEach(([k, x]) => walk(x, key ? `${key}.${k}` : k));
+    };
+    walk(facts, '');
+    return out.map(x => ({ key: x.key.toLowerCase(), v: x.v }));
+}
+function candidatesFor(unit, facts) {
+    const u = unit.replace(/\s/g, '');
+    const rule = UNIT_KEYS.find(([re]) => re.test(u));
+    const pick = rule ? facts.filter(f => rule[1].test(f.key)) : facts;
+    const vals = pick.map(f => f.v);
+    if (u === 'km') return vals.flatMap(v => [v, v / 1000]);
+    if (u === 'm') return vals.flatMap(v => [v, v * 1000]);
+    return vals;
+}
+function tokenReadings(token) {
+    const readings = new Set();
+    const en = Number(token.replace(/,/g, ''));
+    if (Number.isFinite(en)) readings.add(en);
+    const tr = Number(token.replace(/\./g, '').replace(',', '.'));
+    if (Number.isFinite(tr)) readings.add(tr);
+    return [...readings];
+}
+function numberSupported(token, unit, facts) {
+    const known = candidatesFor(unit, facts);
+    return tokenReadings(token).some(v => known.some(k => {
+        const a = Math.abs(v), b = Math.abs(k);
+        return Math.abs(a - b) <= Math.max(0.051, 0.02 * b);
+    }));
+}
+function unsupportedIn(text, known) {
+    const bad = [];
+    for (const m of String(text).matchAll(UNIT_NUMBER)) if (!numberSupported(m[1], m[2], known)) bad.push(m[0].trim());
+    return bad;
+}
+function filterText(text, known, problems) {
+    if (typeof text !== 'string') return text;
+    const sentences = text.split(/(?<=[.!?])\s+/);
+    const kept = sentences.filter(sentence => {
+        const bad = unsupportedIn(sentence, known);
+        if (bad.length) problems.push(`removed sentence with unsupported value(s): ${bad.join(', ')}`);
+        return !bad.length;
+    });
+    return kept.join(' ').trim();
+}
+function weatherSummary(w) {
+    if (!w || !w.available) return 'not available';
+    const parts = [];
+    if (Number.isFinite(w.air_temp_c)) parts.push(`air ${w.air_temp_c} °C`);
+    if (Number.isFinite(w.ground_temp_c)) parts.push(`ground ${w.ground_temp_c} °C`);
+    if (Number.isFinite(w.pressure_pa)) parts.push(`pressure ${w.pressure_pa} Pa`);
+    if (w.wind_m_s) parts.push(`wind median ${w.wind_m_s.median} m/s`);
+    if (w.dust_optical_depth) parts.push(`dust optical depth ${w.dust_optical_depth.median}`);
+    return `Typical measured values at ${w.hour_ltst}:00 local time: ${parts.join(', ')}.`;
+}
+function templateNarration(facts) {
+    const e = facts.environment || {};
+    const o = facts.optimality || {};
+    const fmt = (v, d = 1) => (Number.isFinite(v) ? Number(v.toFixed(d)) : 'n/a');
+    const fallbackNote = facts.fallback
+        ? 'No fully passable route exists for these points; this is the least-risk alternative and it still crosses hazardous terrain. It is not safe.'
+        : 'All cells on this route are within the slope limit used by the planner.';
+    return {
+        why: `${fallbackNote} The route was computed by ${o.algorithm || 'the route engine'}; the language model did not change it.`,
+        factors: [
+            { name: 'Distance', value: `${fmt(e.distance_m / 1000, 2)} km (surface ${fmt(e.surface_distance_m / 1000, 2)} km)`, effect: 'Longer routes take more time and energy.' },
+            { name: 'Slope', value: `mean ${fmt(e.mean_slope_deg)}°, max ${fmt(e.max_slope_deg)}°`, effect: 'Steeper ground raises slip and tip-over risk.' },
+            { name: 'Elevation change', value: `ascent ${fmt(e.ascent_m, 0)} m, descent ${fmt(e.descent_m, 0)} m`, effect: 'Climbing costs energy; descending steep ground needs care.' }
+        ],
+        environment: { slope: `mean ${fmt(e.mean_slope_deg)}°`, elevation: `ascent ${fmt(e.ascent_m, 0)} m`, surface: `horizontal ${fmt(e.distance_m, 0)} m, surface ${fmt(e.surface_distance_m, 0)} m`, weather: weatherSummary(e.weather) },
+        navigation: 'Follow the route in order, confirm heading on long straight legs and slow down at turns.'
+    };
+}
+function checkedNarration(narration, facts) {
+    if (!narration || typeof narration.why !== 'string' || !Array.isArray(narration.factors) ||
+        !narration.environment || typeof narration.environment !== 'object' || typeof narration.navigation !== 'string') {
+        return { narration: templateNarration(facts), source: 'template', problems: ['invalid narration structure'] };
+    }
+    const known = factNumbers(facts);
+    const problems = [];
+    const out = {
+        why: filterText(narration.why, known, problems),
+        factors: narration.factors
+            .map(f => (f && typeof f === 'object' ? { ...f, value: filterText(f.value, known, problems), effect: filterText(f.effect, known, problems) } : f))
+            .filter(f => f && typeof f.name === 'string' && f.value),
+        environment: Object.fromEntries(Object.entries(narration.environment).map(([k, v]) => [k, filterText(v, known, problems)])),
+        navigation: filterText(narration.navigation, known, problems)
+    };
+    if (!out.why) return { narration: templateNarration(facts), source: 'template', problems: [...problems, 'why empty after filtering'] };
+    return { narration: out, source: problems.length ? 'model_filtered' : 'model', problems };
+}
+
 function fallbackNavigationStep(waypoint) {
-    const directions = { east: 'doğuya', west: 'batıya', south: 'güneye', north: 'kuzeye' };
+    const directions = { east: 'east', west: 'west', south: 'south', north: 'north' };
     const direction = directions[waypoint.legDirection];
     const legMoves = waypoint.legGridMoves;
     return {
         instruction: direction
-            ? `${direction} ilerleyerek (${waypoint.x}, ${waypoint.y}) waypointine ulaş.`
-            : `Başlangıç waypointi (${waypoint.x}, ${waypoint.y}) konumunu doğrula.`,
+            ? `Head ${direction} to waypoint (${waypoint.x}, ${waypoint.y}).`
+            : `Confirm the start waypoint at (${waypoint.x}, ${waypoint.y}).`,
         commentary: direction
-            ? `Bu bacak ${direction} yönünde ${legMoves} ızgara hareketi sürer ve hesaplanan düşük maliyetli rover rotasını izler.`
-            : 'Bu, hesaplanan düşük maliyetli rover rotasının başlangıç noktasıdır.',
+            ? `This leg runs ${direction} for ${legMoves} grid moves and follows the computed low-cost rover route.`
+            : 'This is the start of the computed low-cost rover route.',
         tip: legMoves > 10
-            ? 'Uzun düz bacakta yönünü düzenli doğrula; sonraki dönüş waypointine yaklaşırken yavaşla.'
-            : 'Waypoint koordinatını doğrula ve yön değişiminde kontrollü ilerle.',
+            ? 'On this long straight leg, check heading regularly and slow down near the next turn.'
+            : 'Confirm the waypoint coordinate and move carefully through the turn.',
         x: waypoint.x,
         y: waypoint.y
     };
@@ -506,6 +624,8 @@ app.post('/ai', async (req, res) => {
 
 app.post('/route', async (req, res) => {
     const { start, end } = req.body;
+    const hour = Number.isFinite(Number(req.body.hour)) ? Number(req.body.hour) : 13;
+    const ls = Number.isFinite(Number(req.body.ls)) && req.body.ls !== null && req.body.ls !== '' ? Number(req.body.ls) : null;
     const validPoint = point => point && Number.isFinite(point.x) && Number.isFinite(point.y) &&
         point.x >= 0 && point.x < 176 && point.y >= 0 && point.y < 176;
     if (!validPoint(start) || !validPoint(end)) {
@@ -540,10 +660,8 @@ app.post('/route', async (req, res) => {
             elevation_end_m: balanced.geometry.vertex_elevation_m.at(-1),
             cells: balanced.cells,
             hirise_cell_share_pct: balanced.hirise_cell_share_pct,
-            weather: 'unavailable; not used in routing',
-            dust: 'unavailable; not used in routing',
-            soil_strength: 'unavailable; not used in routing',
-            radiation: 'unavailable; not used in routing'
+            weather: weatherFor({ hour, ls }),
+            soil_strength: 'unavailable; not used in routing'
         };
         const profile = routeProfile(balanced.geometry.coordinates, pathingTerrain);
         const shortest = pathingResult.routes.find(route => route.objective === 'shortest');
@@ -599,7 +717,13 @@ app.post('/route', async (req, res) => {
                     validation: balanced.validation
                 })
             }], navigationSystemPrompt, true, 1800);
-            response.narration = parseAssistantJson(aiResponse);
+            const facts = { optimality, environment, risk, status: pathingResult.status, fallback: response.fallback, validation: balanced.validation };
+            let parsed = null;
+            try { parsed = parseAssistantJson(aiResponse); } catch { parsed = null; }
+            const checked = checkedNarration(parsed, facts);
+            response.narration = checked.narration;
+            response.narrationSource = checked.source;
+            response.narrationCheck = checked.problems;
         } catch (error) {
             response.narrationError = error.message || 'AI narration unavailable';
         }
@@ -631,38 +755,24 @@ app.post('/ai/narrate', async (req, res) => {
                 route
             })
         }], navigationSystemPrompt, true, 1800);
-        let narration;
-        try {
-            narration = parseAssistantJson(aiResponse);
-        } catch (error) {
-            return res.status(502).json({
-                error: 'AI returned invalid navigation JSON',
-                details: error.message
-            });
-        }
-        if (!narration || typeof narration.why !== 'string' ||
-            !Array.isArray(narration.factors) ||
-            narration.factors.some(factor => !factor || typeof factor.name !== 'string' ||
-                typeof factor.value !== 'string' || typeof factor.effect !== 'string') ||
-            !narration.environment || typeof narration.environment !== 'object' ||
-            typeof narration.navigation !== 'string') {
-            return res.status(502).json({ error: 'AI returned an invalid navigation explanation' });
-        }
-        return res.json({
-            why: narration.why,
-            factors: narration.factors,
-            environment: narration.environment,
-            navigation: narration.navigation
-        });
+        let parsed = null;
+        try { parsed = parseAssistantJson(aiResponse); } catch { parsed = null; }
+        const checked = checkedNarration(parsed, { optimality, environment, risk: risk || null });
+        return res.json({ ...checked.narration, source: checked.source, check: checked.problems });
     } catch (error) {
         return sendAiError(res, error);
     }
 });
 
-app.get("/aistatus", (res, req) => {
-    requestAi([{ role: 'user', content: 'Hello' }])
-        .then(() => res.json({ status: 'ok' }))
-        .catch(error => sendAiError(res, error));
+// --- NASA data routes (data/ folder) ---
+app.get('/weather', (req, res) => {
+    res.json(weatherFor({ hour: req.query.hour ?? 13, ls: req.query.ls ?? null }));
+});
+app.get('/waypoint-images', (req, res) => {
+    res.json(waypointImagesFor(req.query.site, req.query.drive));
+});
+app.get('/trek-layers', (req, res) => {
+    res.json(trekLayers || { status: 'not_ready', layers: [] });
 });
 
 

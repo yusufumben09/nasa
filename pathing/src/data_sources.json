@@ -89,6 +89,93 @@
    "provider": "NASA/JPL/MSSS/Caltech Murray Lab/Esri (tile service already used by harita/jezero_harita.html)",
    "url": "https://astro.arcgis.com/arcgis/rest/services/OnMars/CTX/MapServer",
    "used_for": "Visual background only; not used for computation"
+  },
+  {
+   "id": "trek_wmts",
+   "name": "Mars Trek WMTS Jezero layers",
+   "template": "https://trek.nasa.gov/tiles/Mars/EQ/{id}/1.0.0//default/default028mm/{z}/{row}/{col}.png",
+   "layers": [
+    "JEZ_hirise_soc_006_orthoMosaic_25cm_Eqc_latTs0_lon0_first_dd (z0-17)",
+    "NES_JEZ_MID_Visible_Mosaic_HiRISE_CTX_HRSC_GCS_MARS_07-10-2018 (z0-17)",
+    "JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0 (z0-13)"
+   ],
+   "status": "5 layers re-tested 14 Nov (trek_layers.json)",
+   "use": "globe/map texture instead of unknown-source image.png",
+   "used_for": "data/trek_layers.json"
+  },
+  {
+   "id": "meda_tirs",
+   "name": "MEDA TIRS calibrated",
+   "url": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/",
+   "status": "in environment_meda.json (16 sols)",
+   "used_for": "data/environment_meda.json (temperature)"
+  },
+  {
+   "id": "meda_ps",
+   "name": "MEDA PS derived (DER_PS)",
+   "status": "added 14 Nov (16 sols, 617-812 Pa)",
+   "used_for": "data/environment_meda.json (pressure)"
+  },
+  {
+   "id": "meda_ws",
+   "name": "MEDA WS derived (DER_WS)",
+   "status": "added 14 Nov (sols 60-290 only)",
+   "quality": "WS damaged on sol 313; highest-confidence data sols 1-313 (Vicente-Retortillo, EPSC-DPS2025-1461)",
+   "used_for": "data/environment_meda.json (wind)"
+  },
+  {
+   "id": "msl_rad",
+   "name": "Curiosity RAD dose",
+   "value": "0.21±0.04 mGy/day; 0.64±0.12 mSv/day",
+   "citation": "Hassler et al. 2014, Science 343, doi:10.1126/science.1244797",
+   "note": "Gale crater, not Jezero",
+   "used_for": "data/environment_meda.json (radiation, Gale value)"
+  },
+  {
+   "id": "m20_raw_images",
+   "name": "Perseverance Raw Images API",
+   "url": "https://mars.nasa.gov/rss/api/?feed=raw_images&category=mars2020&feedtype=json&sol=N&num=50&page=0",
+   "status": "verified; site/drive match waypoint RMC",
+   "used_for": "data/waypoint_images.json"
+  },
+  {
+   "id": "meda_rhs",
+   "name": "MEDA HS derived (DER_RHS)",
+   "url": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/",
+   "license": "NASA PDS (public)",
+   "status": "added 14 Nov (14 sols, 105-695)",
+   "used_for": "data/environment_meda.json (humidity)"
+  },
+  {
+   "id": "meda_rds",
+   "name": "MEDA RDS calibrated (CAL_RDS) TOP_3 250-400 nm",
+   "url": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/",
+   "license": "NASA PDS (public)",
+   "status": "added; narrow FOV, relative cycle only",
+   "used_for": "data/environment_meda.json (uv, relative only)"
+  },
+  {
+   "id": "meda_ancillary",
+   "name": "MEDA DER_ANCILLARY solar zenith angle",
+   "license": "NASA PDS (public)",
+   "status": "used for measured sun elevation",
+   "used_for": "data/sun_elevation.json (measured)"
+  },
+  {
+   "id": "m20_mastcamz_tau",
+   "name": "Perseverance Mastcam-Z Visible Aerosol Optical Depth Record (Lemmon)",
+   "url": "https://data.mendeley.com/datasets/gktjp9jptb/2",
+   "doi": "10.17632/gktjp9jptb.2",
+   "license": "CC BY 4.0",
+   "status": "downloaded in browser 14 Nov; 2058 rows, sols 16-1717; PRELIMINARY",
+   "used_for": "data/environment_meda.json (dust opacity)"
+  },
+  {
+   "id": "mars24_am2000",
+   "name": "Mars24 algorithm (NASA GISS), Allison & McEwen 2000",
+   "doi": "10.1016/S0032-0633(99)00092-6",
+   "use": "sun elevation, Ls from sol (own Python implementation)",
+   "used_for": "data/sun_elevation.json"
   }
  ],
  "not_used": [
